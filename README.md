@@ -1,7 +1,7 @@
 # vue-markdown-wasm
 
 [![jsdelivr CDN](https://data.jsdelivr.com/v1/package/npm/vue-markdown-wasm/badge)](https://www.jsdelivr.com/package/npm/vue-markdown-wasm)
-[![NPM Downloads](https://img.shields.io/npm/dm/vue-codemirror6.svg?style=flat)](https://www.npmjs.com/package/vue-markdown-wasm)
+[![NPM Downloads](https://img.shields.io/npm/dm/vue-markdown-wasm.svg?style=flat)](https://www.npmjs.com/package/vue-markdown-wasm)
 [![Open in unpkg](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/vue-markdown-wasm/file/README.md)
 [![npm version](https://img.shields.io/npm/v/vue-markdown-wasm.svg)](https://www.npmjs.com/package/vue-markdown-wasm)
 [![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/logue/vue-markdown-wasm)

@@ -43,7 +43,7 @@ watch(dark, () => {
 <template>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid d-flex justify-content-between">
-      <a class="navbar-brand" href="#">Vue CodeMirror6</a>
+      <a class="navbar-brand" href="#">Vue Markdown wasm</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -58,7 +58,10 @@ watch(dark, () => {
       <div id="navbarCollapse" class="collapse navbar-collapse flex-grow-0">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="https://github.com/logue/vue-codemirror6">
+            <a
+              class="nav-link"
+              href="https://github.com/logue/vue-markdown-wasm"
+            >
               <i class="bi bi-github" />
             </a>
           </li>
@@ -75,7 +78,7 @@ watch(dark, () => {
     <div class="container py-3">
       <h1>Vue Markdown wasm Demo</h1>
       <p class="lead">
-        A rough demo of Vue Codemirror in action. You can switch between dark
+        A rough demo of Vue Markdown wasm in action. You can switch between dark
         modes from the
         <i class="bi bi-circle-half" />
         icon in the upper left.
@@ -83,7 +86,7 @@ watch(dark, () => {
     </div>
   </header>
 
-  <main class="flex-shrink-0 pt-4 bg-white">
+  <main class="flex-glow-0 pt-4 h-100">
     <demo-page :dark="dark" />
   </main>
 
