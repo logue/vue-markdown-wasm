@@ -1,9 +1,10 @@
 <script setup>
+/** Realtime Markdown Editor demo */
 import { ref } from 'vue';
 
 import CodeMirror from 'vue-codemirror6';
-import { markdown as md } from '@codemirror/lang-markdown';
 import VueMarkdown from 'vue-markdown-wasm';
+import { markdown as md } from '@codemirror/lang-markdown';
 
 /** Demo text */
 const input = ref(`# The quick brown fox jumps over the lazy dog.

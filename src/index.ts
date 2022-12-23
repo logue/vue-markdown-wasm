@@ -1,7 +1,6 @@
 import Markdown from './components/VueMarkdown';
 import Meta from './Meta';
 
-// TODO: Move phrases props to option.
 const installMarkdown = (app: any) => app.component('VueMarkdown', Markdown);
 
 export { Markdown as default, installMarkdown as install, Meta };

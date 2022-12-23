@@ -58,16 +58,19 @@ export default defineComponent({
   setup(props, context: SetupContext) {
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
-
+    /** Output HTML */
     const html: Ref<string> = ref('');
 
+    /** Re rednder markdown */
     watch(
       () => props.modelValue,
       value => (html.value = parse(value, props.options))
     );
 
     onMounted(async () => {
+      // Setup markdown-wasm
       await ready;
+      // Render markdown
       html.value = parse(props.modelValue, props.options);
       context.emit('ready');
     });
