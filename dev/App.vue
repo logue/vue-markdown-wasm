@@ -86,7 +86,7 @@ watch(dark, () => {
     </div>
   </header>
 
-  <main class="flex-glow-0 pt-4 h-100">
+  <main class="flex-glow-0 pt-4">
     <demo-page :dark="dark" />
   </main>
 
@@ -102,15 +102,11 @@ watch(dark, () => {
   <teleport to="head">
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      integrity="sha256-wLz3iY/cO4e6vKZ4zRmo4+9XDpMcgKOvv/zEU3OMlRo="
-      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-      integrity="sha256-4RctOgogjPAdwGbwq+rxfwAmSpZhWaafcZR9btzUk18="
-      crossorigin="anonymous"
     />
   </teleport>
 </template>

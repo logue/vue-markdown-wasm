@@ -1,5 +1,9 @@
 # vue-markdown-wasm
 
+<p align="center">
+<img src="./sample.png" alt="logo" width="300" height="300" />
+</p>
+
 [![jsdelivr CDN](https://data.jsdelivr.com/v1/package/npm/vue-markdown-wasm/badge)](https://www.jsdelivr.com/package/npm/vue-markdown-wasm)
 [![NPM Downloads](https://img.shields.io/npm/dm/vue-markdown-wasm.svg?style=flat)](https://www.npmjs.com/package/vue-markdown-wasm)
 [![Open in unpkg](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/vue-markdown-wasm/file/README.md)
@@ -33,10 +37,48 @@ See [realtime markdown editor source](./dev/DemoPage.vue) using with [vue-codemi
 
 ## Props
 
-| Props   | Type         | Default | Information                                                                                 |
-| ------- | ------------ | ------- | ------------------------------------------------------------------------------------------- |
-| tag     | string       | article | Markdown wasm wrapping tag. Default is `article` because it may contain `h1` and `h2` tags. |
-| options | ParseOptions | {}      | see [markdown-wasm's api](https://github.com/rsms/markdown-wasm/#api)                       |
+| Props           | Type                  | Default            | Information                                                                                                                 |
+| --------------- | --------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `tag`           | `string`              | article            | Markdown wasm wrapping tag. Default is `article` because it may contain `h1` and `h2` tags.                                 |
+| `parse-flags`   | `ParseFlags`          | ParseFlags.DEFAULT | Flags that customize Markdown parsin                                                                                        |
+| `format`        | `<'html' \| 'xhtml'>` | html               | Select output format                                                                                                        |
+| `bytes`         | `boolean`             | false              | result as a Uint8Array                                                                                                      |
+| `allow-js-uris` | `boolean`             | false              | Allow "javascript:" in links                                                                                                |
+| `on-code-block` | `Function`            | undefined          | Optional callback which if provided is called for each code block. langname holds the "language tag", if any, of the block. |
+
+### ParseFlags
+
+| Flags                         | Description                                              |
+| ----------------------------- | -------------------------------------------------------- |
+| `COLLAPSE_WHITESPACE`         | In TEXT, collapse non-trivial whitespace into single ' ' |
+| `LATEX_MATH_SPANS`            | Enable $ and $$ containing LaTeX equations.              |
+| `NO_HTML_BLOCKS`              | Disable raw HTML blocks.                                 |
+| `NO_HTML_SPANS`               | Disable raw HTML (inline).                               |
+| `NO_INDENTED_CODE_BLOCKS`     | Disable indented code blocks. (Only fenced code works.)  |
+| `PERMISSIVE_ATX_HEADERS`      | Do not require space in ATX headers ( ###header )        |
+| `PERMISSIVE_EMAIL_AUTO_LINKS` | Recognize e-mails as links even without \<...\>          |
+| `PERMISSIVE_URL_AUTO_LINKS`   | Recognize URLs as links even without <...>               |
+| `PERMISSIVE_WWW_AUTOLINKS`    | Enable WWW autolinks (without proto; just 'www.')        |
+| `STRIKETHROUGH`               | Enable strikethrough extension.                          |
+| `TABLES`                      | Enable tables extension.                                 |
+| `TASK_LISTS`                  | Enable task list extension.                              |
+| `WIKI_LINKS`                  | Enable wiki links extension.                             |
+| `UNDERLINE`                   | Enable underline extension (disables '\_' for emphasis)  |
+
+- `DEFAULT` flag is shorthand for `COLLAPSE_WHITESPACE | PERMISSIVE_ATX_HEADERS | PERMISSIVE_URL_AUTO_LINKS | STRIKETHROUGH | TABLES | TASK_LISTS`
+- `NO_HTML` flag is shorthand for `NO_HTML_BLOCKS | NO_HTML_SPANS`
+
+## Emits
+
+| Emits     | Type                   | Description                      |
+| --------- | ---------------------- | -------------------------------- |
+| `@render` | `string \| Uint8Array` | When markdown to html converted. |
+
+## Exposed Function
+
+| Function                                                              | Type                            | Description                 |
+| --------------------------------------------------------------------- | ------------------------------- | --------------------------- |
+| `render(markdown: string \| ArrayLike<number>, config: ParseOptions)` | `Promise<string \| Uint8Array>` | Run markdown-wasm directly. |
 
 ## LICENSE
 
