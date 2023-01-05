@@ -61,7 +61,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
  *
  * @description ${pkg.description}
  * @author ${pkg.author.name} <${pkg.author.email}>
- * @copyright 2022 By Masashi Yoshikawa All rights reserved.
+ * @copyright 2022-2023 By Masashi Yoshikawa All rights reserved.
  * @license ${pkg.license}
  * @version ${pkg.version}
  * @see {@link ${pkg.homepage}}
@@ -74,12 +74,17 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
     // Build Options
     // https://vitejs.dev/config/#build-options
     build: {
-      lib: {
-        entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
-        name: 'CodeMirror',
-        formats: ['umd', 'es', 'iife'],
-        fileName: format => `index.${format}.js`,
-      },
+      outDir: mode === 'docs' ? 'docs' : undefined,
+      lib:
+        mode === 'docs'
+          ? undefined
+          : {
+              entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
+              name: 'CodeMirror',
+              formats: ['umd', 'es', 'iife'],
+              fileName: format => `index.${format}.js`,
+            },
+
       rollupOptions: {
         plugins: [
           mode === 'analyze'
@@ -87,13 +92,13 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
               // https://github.com/btd/rollup-plugin-visualizer
               visualizer({
                 open: true,
-                filename: 'dist/stats.html',
-                gzipSize: true,
-                brotliSize: true,
+                filename: 'stats.html',
+                gzipSize: false,
+                brotliSize: false,
               })
             : undefined,
         ],
-        external: ['vue', 'vue-demi'],
+        external: mode === 'docs' ? undefined : ['vue', 'vue-demi'],
         output: {
           esModule: true,
           generatedCode: {
@@ -106,11 +111,29 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
             vue: 'Vue',
             'vue-demi': 'VueDemi',
           },
+          manualChunks:
+            mode !== 'docs'
+              ? undefined
+              : {
+                  vue: ['vue'],
+                  codemirror: [
+                    'codemirror',
+                    '@codemirror/autocomplete',
+                    '@codemirror/commands',
+                    '@codemirror/language',
+                    '@codemirror/lint',
+                    '@codemirror/search',
+                    '@codemirror/state',
+                    '@codemirror/view',
+                    // Add the following as needed.
+                    '@codemirror/lang-markdown',
+                  ],
+                },
         },
       },
       // Minify option
       target: 'esnext',
-      minify: false,
+      minify: mode === 'docs',
     },
   };
 

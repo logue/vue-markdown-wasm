@@ -92,7 +92,7 @@ watch(dark, () => {
 
   <footer class="footer mt-auto py-3 mb-0 bg-light">
     <div class="container mb-0">
-      &copy; 2022 by
+      &copy; 2022-2023 by
       <a href="http://logue.dev/">Logue</a>
       . Licensed under the
       <a href="http://opensource.org/licenses/mit-license.php">MIT License</a>
@@ -106,7 +106,7 @@ watch(dark, () => {
     />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
   </teleport>
 </template>

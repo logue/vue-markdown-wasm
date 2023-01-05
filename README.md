@@ -1,7 +1,7 @@
 # vue-markdown-wasm
 
 <p align="center">
-<img src="./sample.png" alt="logo" width="300" height="300" />
+<img src="./src-docs/assets/logo.png" alt="logo" width="300" height="300" />
 </p>
 
 [![jsdelivr CDN](https://data.jsdelivr.com/v1/package/npm/vue-markdown-wasm/badge)](https://www.jsdelivr.com/package/npm/vue-markdown-wasm)
@@ -11,7 +11,7 @@
 [![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/logue/vue-markdown-wasm)
 [![Twitter Follow](https://img.shields.io/twitter/follow/logue256?style=plastic)](https://twitter.com/logue256)
 
-[Rasmus](https://github.com/rsms)'s [markdown-wasm](https://github.com/rsms/markdown-wasm/) for vue 2 & 3.
+Vue2 and 3 component for [Rasmus](https://github.com/rsms)'s [markdown-wasm](https://github.com/rsms/markdown-wasm/).
 
 ## Usage
 
@@ -33,7 +33,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 </template>
 ```
 
-See [realtime markdown editor source](./dev/DemoPage.vue) using with [vue-codemirror6](https://github.com/logue/vue-codemirror6).
+See [realtime markdown editor source](./src-docs/DemoPage.vue) using with [vue-codemirror6](https://github.com/logue/vue-codemirror6).
 
 ## Props
 
@@ -84,4 +84,4 @@ See [realtime markdown editor source](./dev/DemoPage.vue) using with [vue-codemi
 
 [MIT](LICENSE)
 
-&copy; 2022 by Logue.
+&copy; 2022-2023 by Logue.

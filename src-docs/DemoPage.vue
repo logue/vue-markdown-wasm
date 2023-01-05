@@ -9,6 +9,8 @@ import { markdown as md } from '@codemirror/lang-markdown';
 import VueMarkdown from 'vue-markdown-wasm';
 import { ParseFlags } from 'markdown-wasm';
 
+import logo from './assets/logo.png';
+
 const markdown: Ref<InstanceType<typeof VueMarkdown> | undefined> = ref();
 
 /** Demo text */
@@ -49,7 +51,7 @@ _You **can** combine them_
 
 ## Images
 
-![This is a alt text.](/sample.png "This is a sample image.")
+![This is a alt text.](${logo} "This is a sample image.")
 
 ## Links
 

@@ -1,5 +1,5 @@
-import Markdown from './components/VueMarkdown';
-import Meta from './Meta';
+import Markdown from '@/components/VueMarkdown';
+import Meta from '@/Meta';
 
 const installMarkdown = (app: any) => app.component('VueMarkdown', Markdown);
 

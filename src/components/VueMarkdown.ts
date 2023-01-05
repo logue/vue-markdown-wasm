@@ -1,12 +1,13 @@
 import {
   defineComponent,
+  nextTick,
+  onMounted,
   ref,
   watch,
+  type ObjectEmitsOptions,
   type PropType,
   type Ref,
   type SetupContext,
-  onMounted,
-  nextTick,
 } from 'vue-demi';
 
 // Helpers
@@ -15,9 +16,14 @@ import {
   parse,
   ParseFlags,
   ready,
+  type ParseOptions,
   type UTF8Bytes,
 } from '@/helpers/markdown.es';
-import type { ParseOptions } from 'markdown-wasm';
+
+interface Emits extends ObjectEmitsOptions {
+  /** After rendering */
+  (event: 'render', value: string | Uint8Array): void;
+}
 
 /** Vue Markdown Component */
 export default defineComponent({
@@ -46,7 +52,6 @@ export default defineComponent({
       type: Number as PropType<ParseFlags>,
       default: ParseFlags.DEFAULT,
     },
-
     /** Select output format. */
     format: {
       type: String as PropType<'html' | 'xhtml'>,
@@ -102,7 +107,7 @@ export default defineComponent({
    * @param props  - Props
    * @param context - Context
    */
-  setup(props, context: SetupContext) {
+  setup(props, context: SetupContext<Emits>) {
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
     /** Output HTML */
@@ -143,7 +148,7 @@ export default defineComponent({
       }
     ): Promise<string | Uint8Array> => {
       await ready;
-      const ret = parse(markdown, config);
+      const ret = parse(markdown, config) as string | Uint8Array;
       context.emit('render', ret);
       return ret;
     };
