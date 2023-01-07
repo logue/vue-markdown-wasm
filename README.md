@@ -33,7 +33,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 </template>
 ```
 
-See [realtime markdown editor source](./src-docs/DemoPage.vue) using with [vue-codemirror6](https://github.com/logue/vue-codemirror6).
+See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [source code](./src-docs/DemoPage.vue).
 
 ## Props
 
@@ -43,7 +43,7 @@ See [realtime markdown editor source](./src-docs/DemoPage.vue) using with [vue-c
 | `parse-flags`   | `ParseFlags`          | ParseFlags.DEFAULT | Flags that customize Markdown parsin                                                                                        |
 | `format`        | `<'html' \| 'xhtml'>` | html               | Select output format                                                                                                        |
 | `bytes`         | `boolean`             | false              | result as a Uint8Array                                                                                                      |
-| `allow-js-uris` | `boolean`             | false              | Allow "javascript:" in links                                                                                                |
+| `allow-js-uri`  | `boolean`             | false              | Allow "javascript:" in links                                                                                                |
 | `on-code-block` | `Function`            | undefined          | Optional callback which if provided is called for each code block. langname holds the "language tag", if any, of the block. |
 
 ### ParseFlags
@@ -79,6 +79,10 @@ See [realtime markdown editor source](./src-docs/DemoPage.vue) using with [vue-c
 | Function                                                              | Type                            | Description                 |
 | --------------------------------------------------------------------- | ------------------------------- | --------------------------- |
 | `render(markdown: string \| ArrayLike<number>, config: ParseOptions)` | `Promise<string \| Uint8Array>` | Run markdown-wasm directly. |
+
+## Known issue
+
+Currently, markdown.wasm is fetched from [jsdelivr](https://www.jsdelivr.com/), so it may not be available depending on the [CSP settings](https://developer.mozilla.org/docs/Web/HTTP/CSP).
 
 ## LICENSE
 

@@ -72,7 +72,7 @@ export default defineComponent({
       default: false,
     },
     /** Allow "javascript:" in links */
-    allowJSURIs: {
+    allowJsUri: {
       type: Boolean,
       default: false,
     },
@@ -121,7 +121,7 @@ export default defineComponent({
           parseFlags: value.parseFlags,
           format: value.format,
           bytes: props.bytes,
-          allowJSURIs: value.allowJSURIs,
+          allowJSURIs: value.allowJsUri,
           onCodeBlock: value.onCodeBlock,
         });
         await nextTick();
@@ -143,7 +143,7 @@ export default defineComponent({
         parseFlags: props.parseFlags,
         format: props.format,
         bytes: props.bytes,
-        allowJSURIs: props.allowJSURIs,
+        allowJSURIs: props.allowJsUri,
         onCodeBlock: props.onCodeBlock,
       }
     ): Promise<string | Uint8Array> => {

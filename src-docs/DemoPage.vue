@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /** Realtime Markdown Editor demo */
 import { ref, watch, type Ref } from 'vue';
+import { useDark } from '@vueuse/core';
 
 import CodeMirror from 'vue-codemirror6';
 import { markdown as md } from '@codemirror/lang-markdown';
@@ -11,6 +12,7 @@ import { ParseFlags } from 'markdown-wasm';
 
 import logo from './assets/logo.png';
 
+/** Markdown wasm output */
 const markdown: Ref<InstanceType<typeof VueMarkdown> | undefined> = ref();
 
 /** Demo text */
@@ -55,7 +57,7 @@ _You **can** combine them_
 
 ## Links
 
-You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
+You may be using [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/).
 
 ## Blockquotes
 
@@ -80,7 +82,7 @@ alert(message);
 
 ## Inline code
 
-This web site is using \`markedjs/marked\`.`);
+This web site is using \`markdown-wasm\`.`);
 
 /** Output Format */
 const format: Ref<'html' | 'xhtml'> = ref('html');
@@ -92,7 +94,7 @@ const parseFlags: Ref<ParseFlags> = ref(ParseFlags.DEFAULT);
 const bytes: Ref<boolean> = ref(false);
 
 /** Allow "javascript:" in links */
-const allowJSURIs: Ref<boolean> = ref(false);
+const allowJsUri: Ref<boolean> = ref(false);
 
 /** Markdown parse flags  */
 const checkedFlags: Ref<ParseFlags[]> = ref([
@@ -103,6 +105,9 @@ const checkedFlags: Ref<ParseFlags[]> = ref([
   ParseFlags.TABLES,
   ParseFlags.TASK_LISTS,
 ]);
+
+const dark = useDark();
+
 // Convert checkbox checks to ParseFlags.
 watch(
   () => checkedFlags.value,
@@ -113,29 +118,43 @@ watch(
 );
 
 /** set DEFAULT flag */
-const setDefault = () =>
-  (checkedFlags.value = [
+const setDefault = () => {
+  checkedFlags.value = [
     ParseFlags.COLLAPSE_WHITESPACE,
     ParseFlags.PERMISSIVE_ATX_HEADERS,
     ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
     ParseFlags.STRIKETHROUGH,
     ParseFlags.TABLES,
     ParseFlags.TASK_LISTS,
-  ]);
+  ];
+};
 
 /** set DEFAULT flag */
 const setNoHtml = () =>
   (checkedFlags.value = [ParseFlags.NO_HTML_BLOCKS, ParseFlags.NO_HTML_SPANS]);
-
-// Sync dark mode
-defineProps({ dark: Boolean });
 </script>
 
 <template>
   <main class="container">
     <div class="card my-3">
-      <h2 class="card-header h5 bg-light">Demo</h2>
-      <div class="card-body bg-white">
+      <h2 class="card-header h5">Demo</h2>
+      <div class="card-body">
+        <p>
+          Markdown editor uses
+          <a href="https://github.com/logue/vue-codemirror6/" target="_blank">
+            vue-codemirror6
+            <i class="bi bi-box-arrow-up-right" />
+          </a>
+          . Also, the Markdown preview uses the
+          <a
+            href="https://github.com/sindresorhus/github-markdown-css/"
+            target="_blank"
+          >
+            github-markdown-css
+            <i class="bi bi-box-arrow-up-right" />
+          </a>
+          stylesheet.
+        </p>
         <div class="row">
           <div class="col-6">
             <code-mirror v-model="input" :dark="dark" :lang="md()" wrap basic />
@@ -144,11 +163,28 @@ defineProps({ dark: Boolean });
             <vue-markdown
               ref="markdown"
               v-model="input"
+              class="markdown-body"
               :parse-flags="parseFlags"
               :format="format"
               :bytes="bytes"
-              :allow-js-uris="allowJSURIs"
+              :allow-js-uri="allowJsUri"
             />
+            <teleport to="head">
+              <link
+                v-if="dark"
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-dark.css"
+                integrity="sha256-AH9zT58bZI9nEtr/GadoaIVpns5/414VcqugvrFjbXs="
+                crossorigin="anonymous"
+              />
+              <link
+                v-else
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-light.css"
+                integrity="sha256-bWV9QiirgHYgauZBcR9YJ3IvEoA3fP2Cf5aOdshBVrI="
+                crossorigin="anonymous"
+              />
+            </teleport>
           </div>
         </div>
       </div>
@@ -428,13 +464,13 @@ defineProps({ dark: Boolean });
           </div>
           <div class="form-check form-switch">
             <input
-              id="allowJSURIs"
-              v-model="allowJSURIs"
+              id="allowJsUri"
+              v-model="allowJsUri"
               class="form-check-input"
               type="checkbox"
               role="switch"
             />
-            <label class="form-check-label" for="allowJSURIs">
+            <label class="form-check-label" for="allowJsUri">
               Allow "javascript:" in links
             </label>
           </div>

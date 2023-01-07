@@ -1,47 +1,15 @@
-<script setup>
-import { ref, watch } from 'vue-demi';
+<script setup lang="ts">
+import { useDark } from '@vueuse/core';
 
+import ToggleTheme from './components/ToggleTheme.vue';
 import DemoPage from './DemoPage.vue';
 
-/** CodeMirror Component */
-
-/** Dark mode */
-const dark = ref(window.matchMedia('(prefers-color-scheme: dark)').matches);
-watch(dark, () => {
-  const body = document.body.classList;
-  const navbar = document.querySelector('.navbar').classList;
-  const header = document.querySelector('.header').classList;
-  const main = document.querySelector('main').classList;
-  const footer = document.querySelector('.footer').classList;
-  if (dark.value) {
-    body.remove('text-white', 'bg-black');
-    body.add('text-black', 'bg-white');
-    navbar.remove('navbar-dark', 'bg-dark');
-    navbar.add('navbar-light', 'bg-light');
-    header.remove('bg-light', 'text-dark');
-    header.add('bg-dark', 'text-light');
-    main.remove('bg-white', 'text-dark');
-    main.add('bg-black', 'text-light');
-    footer.remove('bg-light', 'text-dark');
-    footer.add('bg-dark', 'text-light');
-  } else {
-    body.remove('text-black', 'bg-white');
-    body.add('text-white', 'bg-black');
-    navbar.add('navbar-dark', 'bg-dark');
-    navbar.remove('navbar-light', 'bg-light');
-    header.remove('bg-dark', 'text-light');
-    header.add('bg-light', 'text-dark');
-    main.add('bg-white', 'text-dark');
-    main.remove('bg-black', 'text-light');
-    footer.add('bg-light', 'text-dark');
-    footer.remove('bg-dark', 'text-light');
-  }
-});
+const isDark = useDark();
 </script>
 
 <!-- eslint-disable vuejs-accessibility/anchor-has-content -->
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark">
     <div class="container-fluid d-flex justify-content-between">
       <a class="navbar-brand" href="#">Vue Markdown wasm</a>
       <button
@@ -66,15 +34,13 @@ watch(dark, () => {
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" @click="dark = !dark">
-              <i class="bi bi-circle-half" />
-            </a>
+            <toggle-theme class="nav-link" attribute="data-bs-theme" />
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <header class="header bg-light">
+  <header class="bg-body-tertiary">
     <div class="container py-3">
       <h1>Vue Markdown wasm Demo</h1>
       <p class="lead">
@@ -86,11 +52,11 @@ watch(dark, () => {
     </div>
   </header>
 
-  <main class="flex-glow-0 pt-4">
-    <demo-page :dark="dark" />
+  <main class="flex-glow-0 pt-4 bg-body">
+    <demo-page :dark="isDark" />
   </main>
 
-  <footer class="footer mt-auto py-3 mb-0 bg-light">
+  <footer class="footer mt-auto py-3 mb-0 bg-body-tertiary">
     <div class="container mb-0">
       &copy; 2022-2023 by
       <a href="http://logue.dev/">Logue</a>
@@ -99,16 +65,6 @@ watch(dark, () => {
       .
     </div>
   </footer>
-  <teleport to="head">
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
-  </teleport>
 </template>
 
 <style>
