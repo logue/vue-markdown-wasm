@@ -11,7 +11,7 @@
 [![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/logue/vue-markdown-wasm)
 [![Twitter Follow](https://img.shields.io/twitter/follow/logue256?style=plastic)](https://twitter.com/logue256)
 
-Vue2 and 3 component for [Rasmus](https://github.com/rsms)'s [markdown-wasm](https://github.com/rsms/markdown-wasm/).
+Vue2 and 3 component for [Rasmus](https://github.com/rsms)'s [markdown-wasm](https://github.com/logue/markdown-wasm/).
 
 ## Usage
 

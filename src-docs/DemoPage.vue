@@ -8,7 +8,7 @@ import { markdown as md } from '@codemirror/lang-markdown';
 
 // @ts-ignore
 import VueMarkdown from 'vue-markdown-wasm';
-import { ParseFlags } from 'markdown-wasm';
+import { ParseFlags } from '@logue/markdown-wasm';
 
 import logo from './assets/logo.png';
 
@@ -132,6 +132,18 @@ const setDefault = () => {
 /** set DEFAULT flag */
 const setNoHtml = () =>
   (checkedFlags.value = [ParseFlags.NO_HTML_BLOCKS, ParseFlags.NO_HTML_SPANS]);
+
+/** set COMMOMMARK flag */
+const setCommonMark = () => (checkedFlags.value = []);
+
+/** set GITHUB flag */
+const setGithub = () =>
+  (checkedFlags.value = [
+    ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
+    ParseFlags.TABLES,
+    ParseFlags.STRIKETHROUGH,
+    ParseFlags.TASK_LISTS,
+  ]);
 </script>
 
 <template>
@@ -194,12 +206,30 @@ const setNoHtml = () =>
       <div class="card-body">
         <fieldset>
           <legend>ParseFlags</legend>
-          <div class="d-grid gap-2 d-md-block">
-            <button type="button" class="btn btn-primary" @click="setDefault">
+          <div class="d-grid gap-2 d-md-block my-1">
+            <button
+              type="button"
+              class="btn btn-primary mr-1"
+              @click="setDefault"
+            >
               DEFAULT
             </button>
-            <button type="button" class="btn btn-secondary" @click="setNoHtml">
+            <button type="button" class="btn btn-info mx-1" @click="setNoHtml">
               NO_HTML
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary mx-1"
+              @click="setCommonMark"
+            >
+              COMMONMARK
+            </button>
+            <button
+              type="button"
+              class="btn btn-success ml-1"
+              @click="setGithub"
+            >
+              GITHUB
             </button>
           </div>
           <ul class="list-unstyled card-columns" style="column-count: 2">

@@ -16,7 +16,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
   fs.copyFileSync(
     fileURLToPath(
       new URL(
-        './node_modules/markdown-wasm/dist/markdown.wasm',
+        './node_modules/@logue/markdown-wasm/dist/markdown.wasm',
         import.meta.url
       )
     ),
