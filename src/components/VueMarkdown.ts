@@ -18,7 +18,7 @@ import {
   ready,
   type ParseOptions,
   type UTF8Bytes,
-} from '@/helpers/markdown.es';
+} from '@logue/markdown-wasm';
 
 interface Emits extends ObjectEmitsOptions {
   /** After rendering */
@@ -96,7 +96,9 @@ export default defineComponent({
           body: UTF8Bytes
         ) => Uint8Array | string | null | undefined
       >,
-      default: () => undefined,
+      default: () => {
+        return undefined;
+      },
     },
   },
   /** Emits */
@@ -122,7 +124,7 @@ export default defineComponent({
           format: value.format,
           bytes: props.bytes,
           allowJSURIs: value.allowJsUri,
-          onCodeBlock: value.onCodeBlock,
+          // onCodeBlock: value.onCodeBlock,
         });
         await nextTick();
       },
@@ -144,10 +146,11 @@ export default defineComponent({
         format: props.format,
         bytes: props.bytes,
         allowJSURIs: props.allowJsUri,
-        onCodeBlock: props.onCodeBlock,
+        // onCodeBlock: props.onCodeBlock,
       }
     ): Promise<string | Uint8Array> => {
-      await ready;
+      await ready();
+      // @ts-ignore
       const ret = parse(markdown, config) as string | Uint8Array;
       context.emit('render', ret);
       return ret;
