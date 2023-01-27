@@ -8,7 +8,7 @@ import { markdown as md } from '@codemirror/lang-markdown';
 
 // @ts-ignore
 import VueMarkdown from 'vue-markdown-wasm';
-import { ParseFlags } from '@logue/markdown-wasm';
+import { ParseFlags, type ParseFlagsType } from '@logue/markdown-wasm';
 
 import logo from './assets/logo.png';
 
@@ -85,10 +85,10 @@ alert(message);
 This web site is using \`markdown-wasm\`.`);
 
 /** Output Format */
-const format: Ref<'html' | 'xhtml'> = ref('html');
+const format: Ref<'html' | 'xhtml'> = ref('xhtml');
 
 /** Markdown wasm parse flags */
-const parseFlags: Ref<ParseFlags> = ref(ParseFlags.DEFAULT);
+const parseFlags: Ref<ParseFlagsType> = ref(ParseFlags.DEFAULT);
 
 /** result as a Uint8Array */
 const bytes: Ref<boolean> = ref(false);
@@ -97,7 +97,7 @@ const bytes: Ref<boolean> = ref(false);
 const allowJsUri: Ref<boolean> = ref(false);
 
 /** Markdown parse flags  */
-const checkedFlags: Ref<ParseFlags[]> = ref([
+const checkedFlags: Ref<ParseFlagsType[]> = ref([
   ParseFlags.COLLAPSE_WHITESPACE,
   ParseFlags.PERMISSIVE_ATX_HEADERS,
   ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
@@ -113,7 +113,12 @@ watch(
   () => checkedFlags.value,
   v => {
     parseFlags.value =
-      v.length !== 0 ? Object.values(v).reduce((acc, cur) => acc + cur) : 0;
+      v.length !== 0
+        ? Object.values(v).reduce(
+            // @ts-ignore
+            (acc, cur) => (acc as number) + (cur as number)
+          )
+        : 0;
   }
 );
 

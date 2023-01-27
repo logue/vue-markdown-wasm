@@ -41,7 +41,7 @@ See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [
 | --------------- | --------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
 | `tag`           | `string`              | article            | Markdown wasm wrapping tag. Default is `article` because it may contain `h1` and `h2` tags.                                 |
 | `parse-flags`   | `ParseFlags`          | ParseFlags.DEFAULT | Flags that customize Markdown parsin                                                                                        |
-| `format`        | `<'html' \| 'xhtml'>` | html               | Select output format                                                                                                        |
+| `format`        | `<'html' \| 'xhtml'>` | xhtml              | Select output format                                                                                                        |
 | `bytes`         | `boolean`             | false              | result as a Uint8Array                                                                                                      |
 | `allow-js-uri`  | `boolean`             | false              | Allow "javascript:" in links                                                                                                |
 | `on-code-block` | `Function`            | undefined          | Optional callback which if provided is called for each code block. langname holds the "language tag", if any, of the block. |
@@ -73,16 +73,6 @@ See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [
 | Emits     | Type                   | Description                      |
 | --------- | ---------------------- | -------------------------------- |
 | `@render` | `string \| Uint8Array` | When markdown to html converted. |
-
-## Exposed Function
-
-| Function                                                              | Type                            | Description                 |
-| --------------------------------------------------------------------- | ------------------------------- | --------------------------- |
-| `render(markdown: string \| ArrayLike<number>, config: ParseOptions)` | `Promise<string \| Uint8Array>` | Run markdown-wasm directly. |
-
-## Known issue
-
-Currently, markdown.wasm is fetched from [jsdelivr](https://www.jsdelivr.com/), so it may not be available depending on the [CSP settings](https://developer.mozilla.org/docs/Web/HTTP/CSP).
 
 ## LICENSE
 

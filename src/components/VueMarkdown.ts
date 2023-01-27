@@ -16,8 +16,8 @@ import {
   parse,
   ParseFlags,
   ready,
+  type ParseFlagsType,
   type ParseOptions,
-  type UTF8Bytes,
 } from '@logue/markdown-wasm';
 
 interface Emits extends ObjectEmitsOptions {
@@ -37,7 +37,7 @@ export default defineComponent({
   props: {
     /** Model value */
     modelValue: {
-      type: String as PropType<string | ArrayLike<number>>,
+      type: String as PropType<string | Uint8Array>,
       default: '',
     },
     /**
@@ -49,13 +49,13 @@ export default defineComponent({
     },
     /** Customize parsing */
     parseFlags: {
-      type: Number as PropType<ParseFlags>,
+      type: Number as PropType<ParseFlagsType>,
       default: ParseFlags.DEFAULT,
     },
     /** Select output format. */
     format: {
       type: String as PropType<'html' | 'xhtml'>,
-      default: 'html',
+      default: 'xhtml',
     },
     /**
      * bytes=true causes parse() to return the result as a Uint8Array instead of a string.
@@ -91,10 +91,7 @@ export default defineComponent({
      */
     onCodeBlock: {
       type: Function as PropType<
-        (
-          langname: string,
-          body: UTF8Bytes
-        ) => Uint8Array | string | null | undefined
+        (langname: string, body: Uint8Array) => Uint8Array | string | null
       >,
       default: () => {
         return undefined;
@@ -113,25 +110,34 @@ export default defineComponent({
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
     /** Output HTML */
-    const html: Ref<string | Uint8Array> = ref('');
+    const html: Ref<string | Uint8Array | null> = ref('');
 
     /** Rednder markdown */
     watch(
       () => props,
       async value => {
-        html.value = await render(value.modelValue, {
+        html.value = render(value.modelValue, {
           parseFlags: value.parseFlags,
           format: value.format,
           bytes: props.bytes,
           allowJSURIs: value.allowJsUri,
-          // onCodeBlock: value.onCodeBlock,
+          onCodeBlock: value.onCodeBlock,
         });
         await nextTick();
       },
       { deep: true }
     );
 
-    onMounted(async () => (html.value = await render()));
+    onMounted(async () => {
+      await ready();
+      html.value = render(props.modelValue, {
+        parseFlags: props.parseFlags,
+        format: props.format,
+        bytes: props.bytes,
+        allowJSURIs: props.allowJsUri,
+        onCodeBlock: props.onCodeBlock,
+      });
+    });
 
     /**
      * Markdown source at s and converts it to HTML.
@@ -139,24 +145,11 @@ export default defineComponent({
      * @param markdown - Markdown source.
      * @param config - markdown-wasm parse options
      */
-    const render = async (
-      markdown: string | ArrayLike<number> = props.modelValue,
-      config: ParseOptions = {
-        parseFlags: props.parseFlags,
-        format: props.format,
-        bytes: props.bytes,
-        allowJSURIs: props.allowJsUri,
-        // onCodeBlock: props.onCodeBlock,
-      }
-    ): Promise<string | Uint8Array> => {
-      await ready();
-      // @ts-ignore
-      const ret = parse(markdown, config) as string | Uint8Array;
+    const render = (source: string | Uint8Array, options: ParseOptions) => {
+      const ret = parse(source, options);
       context.emit('render', ret);
       return ret;
     };
-
-    context.expose({ render });
 
     return {
       placeholder,

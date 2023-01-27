@@ -15,7 +15,7 @@
     "vue-component",
     "vue-resource"
   ],
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "type": "module",
   "author": {
@@ -49,7 +49,7 @@
     "./sfc": "./src/components/VueMarkdown.ts"
   },
   "engines": {
-    "node": ">=18.12.1",
+    "node": ">=18.13.0",
     "yarn": ">=1.22.19"
   },
   "packageManager": "yarn@3.3.1",
@@ -69,7 +69,7 @@
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "dependencies": {
-    "@logue/markdown-wasm": "1.4.0",
+    "@logue/markdown-wasm": "1.4.3",
     "vue-demi": "latest"
   },
   "peerDependencies": {
@@ -104,12 +104,12 @@
     "lint-staged": "^13.1.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.3",
-    "rimraf": "^4.1.1",
+    "rimraf": "^4.1.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "typescript": "^4.9.4",
     "vite": "^4.0.4",
     "vite-plugin-banner": "^0.7.0",
-    "vite-plugin-checker": "0.5.4",
+    "vite-plugin-checker": "0.5.5",
     "vue": "^3.2.45",
     "vue-codemirror6": "^1.1.6",
     "vue-eslint-parser": "^9.1.0",
