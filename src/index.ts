@@ -1,13 +1,14 @@
-import Markdown from '@/components/VueMarkdown';
+import VueMarkdown from '@/components/VueMarkdown';
 import Meta from '@/Meta';
 
-const installMarkdown = (app: any) => app.component('VueMarkdown', Markdown);
+const installVueMarkdown = (app: any) =>
+  app.component('VueMarkdown', VueMarkdown);
 
-export { Markdown as default, installMarkdown as install, Meta };
+export { VueMarkdown as default, installVueMarkdown as install, Meta };
 
 // For CDN. (Maybe Vue2 only)
 // @ts-ignore
 if (typeof window !== 'undefined' && window.Vue) {
   // @ts-ignore
-  window.Vue.use(installMarkdown);
+  window.Vue.use(installVueMarkdown);
 }

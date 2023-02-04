@@ -67,7 +67,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
           ? undefined
           : {
               entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
-              name: 'CodeMirror',
+              name: 'VueMarkdown',
               formats: ['umd', 'es', 'iife'],
               fileName: format => `index.${format}.js`,
             },
@@ -85,7 +85,10 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
               })
             : undefined,
         ],
-        external: mode === 'docs' ? undefined : ['vue', 'vue-demi'],
+        external:
+          mode === 'docs'
+            ? undefined
+            : ['vue', 'vue-demi', '@logue/markdown-wasm'],
         output: {
           esModule: true,
           generatedCode: {
@@ -97,6 +100,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
           globals: {
             vue: 'Vue',
             'vue-demi': 'VueDemi',
+            '@logue/markdown-wasm': 'markdownWasm',
           },
           manualChunks:
             mode !== 'docs'
