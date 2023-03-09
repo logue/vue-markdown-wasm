@@ -3,6 +3,7 @@ import { defineConfig, type UserConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import banner from 'vite-plugin-banner';
 import Vue from '@vitejs/plugin-vue';
+import dts from 'vite-plugin-dts';
 
 import { fileURLToPath, URL } from 'node:url';
 import fs from 'node:fs';
@@ -54,6 +55,14 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
  * @see {@link ${pkg.homepage}}
  */
 `),
+      // vite-plugin-dts
+      // https://github.com/qmhc/vite-plugin-dts
+      mode === 'docs'
+        ? undefined
+        : dts({
+            insertTypesEntry: true,
+            tsConfigFilePath: './tsconfig.app.json',
+          }),
     ],
     optimizeDeps: {
       exclude: ['vue-demi'],
@@ -106,8 +115,10 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
             mode !== 'docs'
               ? undefined
               : {
-                  vue: ['vue'],
+                  vue: ['vue', 'lodash'],
+                  'markdown-wasm': ['@logue/markdown-wasm'],
                   codemirror: [
+                    'vue-codemirror6',
                     'codemirror',
                     '@codemirror/autocomplete',
                     '@codemirror/commands',
@@ -116,6 +127,8 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
                     '@codemirror/search',
                     '@codemirror/state',
                     '@codemirror/view',
+                  ],
+                  'codemirror-lang': [
                     // Add the following as needed.
                     '@codemirror/lang-markdown',
                   ],

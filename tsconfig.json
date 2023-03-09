@@ -4,7 +4,6 @@
   "compilerOptions": { "newLine": "lf" },
   "references": [
     { "path": "./tsconfig.config.json" },
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.docs.json" }
+    { "path": "./tsconfig.app.json" }
   ]
 }

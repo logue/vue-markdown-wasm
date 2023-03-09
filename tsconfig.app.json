@@ -6,10 +6,6 @@
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
-    "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
     "paths": {
       "@/*": ["./src/*"]
     },
