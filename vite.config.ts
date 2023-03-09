@@ -60,7 +60,6 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       mode === 'docs'
         ? undefined
         : dts({
-            insertTypesEntry: true,
             tsConfigFilePath: './tsconfig.app.json',
           }),
     ],
