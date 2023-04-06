@@ -76,6 +76,4 @@ See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [
 
 ## LICENSE
 
-[MIT](LICENSE)
-
-&copy; 2022-2023 by Logue.
+©2022-2023 by Logue. Licensed under the [MIT License](LICENSE).

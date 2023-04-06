@@ -4,14 +4,13 @@ import {
   onMounted,
   ref,
   watch,
-  type ObjectEmitsOptions,
   type PropType,
   type Ref,
   type SetupContext,
 } from 'vue-demi';
 
 // Helpers
-import h from '@/helpers/h-demi';
+import h from '../helpers/h-demi';
 import {
   parse,
   ParseFlags,
@@ -20,10 +19,7 @@ import {
   type ParseOptions,
 } from '@logue/markdown-wasm';
 
-interface Emits extends ObjectEmitsOptions {
-  /** After rendering */
-  (event: 'render', value: string | Uint8Array): void;
-}
+type MarkdownOutputs = Uint8Array | string | null;
 
 /** Vue Markdown Component */
 export default defineComponent({
@@ -91,7 +87,7 @@ export default defineComponent({
      */
     onCodeBlock: {
       type: Function as PropType<
-        (langname: string, body: Uint8Array) => Uint8Array | string | null
+        (langname: string, body: Uint8Array) => MarkdownOutputs
       >,
       default: () => {
         return undefined;
@@ -99,18 +95,20 @@ export default defineComponent({
     },
   },
   /** Emits */
-  emits: ['render'],
+  emits: {
+    render: (value: MarkdownOutputs) => true,
+  },
   /**
    * Setup
    *
    * @param props  - Props
    * @param context - Context
    */
-  setup(props, context: SetupContext<Emits>) {
+  setup(props, context: SetupContext) {
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
     /** Output HTML */
-    const html: Ref<string | Uint8Array | null> = ref('');
+    const html: Ref<MarkdownOutputs> = ref('');
 
     /** Rednder markdown */
     watch(
@@ -145,16 +143,22 @@ export default defineComponent({
      * @param markdown - Markdown source.
      * @param config - markdown-wasm parse options
      */
-    const render = (source: string | Uint8Array, options: ParseOptions) => {
+    const render = (
+      source: string | Uint8Array,
+      options: ParseOptions
+    ): MarkdownOutputs => {
       const ret = parse(source, options);
       context.emit('render', ret);
       return ret;
     };
 
+    context.expose({
+      render,
+    });
+
     return {
       placeholder,
       html,
-      render,
     };
   },
   render() {
@@ -166,7 +170,7 @@ export default defineComponent({
       class: 'vue-markdown',
       domProps: {
         innerHTML: this.html,
-      },
+      } as any,
     });
   },
 });

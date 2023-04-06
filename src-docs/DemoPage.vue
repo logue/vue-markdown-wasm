@@ -1,12 +1,11 @@
 <script setup lang="ts">
 /** Realtime Markdown Editor demo */
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, type Ref, nextTick } from 'vue';
 import { useDark } from '@vueuse/core';
 
 import CodeMirror from 'vue-codemirror6';
 import { markdown as md } from '@codemirror/lang-markdown';
 
-// @ts-ignore
 import VueMarkdown from 'vue-markdown-wasm';
 import { ParseFlags, type ParseFlagsType } from '@logue/markdown-wasm';
 
@@ -73,7 +72,7 @@ You may be using [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown
 
 ## Blocks of code
 
-\`\`\`
+\`\`\`js
 let message = 'Hello world';
 alert(message);
 \`\`\`
@@ -104,6 +103,7 @@ const checkedFlags: Ref<ParseFlagsType[]> = ref([
   ParseFlags.TASK_LISTS,
 ]);
 
+/** Darkmode */
 const dark = useDark();
 
 // Convert checkbox checks to ParseFlags.
@@ -147,9 +147,22 @@ const setGithub = () =>
     ParseFlags.STRIKETHROUGH,
     ParseFlags.TASK_LISTS,
   ]);
+
+watch(
+  () => dark.value,
+  async () => await nextTick()
+);
 </script>
 
 <template>
+  <teleport to="head">
+    <link
+      rel="stylesheet"
+      :href="`https://cdn.jsdelivr.net/npm/github-markdown-css@5.2.0/github-markdown-${
+        dark ? 'dark' : 'light'
+      }.css`"
+    />
+  </teleport>
   <main class="container">
     <div class="card my-3">
       <h2 class="card-header h5">Demo</h2>
@@ -158,7 +171,6 @@ const setGithub = () =>
           Markdown editor uses
           <a href="https://github.com/logue/vue-codemirror6/" target="_blank">
             vue-codemirror6
-            <i class="bi bi-box-arrow-up-right" />
           </a>
           . Also, the Markdown preview uses the
           <a
@@ -166,7 +178,6 @@ const setGithub = () =>
             target="_blank"
           >
             github-markdown-css
-            <i class="bi bi-box-arrow-up-right" />
           </a>
           stylesheet.
         </p>
@@ -178,28 +189,12 @@ const setGithub = () =>
             <vue-markdown
               ref="markdown"
               v-model="input"
-              class="markdown-body"
+              class="markdown-body px-3 py-3 rounded"
               :parse-flags="parseFlags"
               :format="format"
               :bytes="bytes"
               :allow-js-uri="allowJsUri"
             />
-            <teleport to="head">
-              <link
-                v-if="dark"
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-dark.css"
-                integrity="sha256-AH9zT58bZI9nEtr/GadoaIVpns5/414VcqugvrFjbXs="
-                crossorigin="anonymous"
-              />
-              <link
-                v-else
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-light.css"
-                integrity="sha256-bWV9QiirgHYgauZBcR9YJ3IvEoA3fP2Cf5aOdshBVrI="
-                crossorigin="anonymous"
-              />
-            </teleport>
           </div>
         </div>
       </div>
@@ -513,8 +508,60 @@ const setGithub = () =>
   </main>
 </template>
 
-<style>
+<style lang="scss">
 .vue-codemirror * {
   font-family: var(--bs-font-monospace);
+}
+
+.markdown-body {
+  font-family: var(--bs-body-font-family);
+
+  h1 > a.anchor,
+  h2 > a.anchor,
+  h3 > a.anchor,
+  h4 > a.anchor,
+  h5 > a.anchor,
+  h6 > a.anchor {
+    display: block;
+    float: left;
+    height: 1.2em;
+    width: 1em;
+    margin-left: -1em;
+    position: relative;
+    outline: none;
+  }
+  /*.anchor:target { background: yellow; }*/
+  h1 > a.anchor:before,
+  h2 > a.anchor:before,
+  h3 > a.anchor:before,
+  h4 > a.anchor:before,
+  h5 > a.anchor:before,
+  h6 > a.anchor:before {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0.2;
+    right: 0;
+    top: 0;
+    width: 1.2em;
+    line-height: inherit;
+    content: '🔗';
+  }
+  h1 > a.anchor:hover:before,
+  h2 > a.anchor:hover:before,
+  h3 > a.anchor:hover:before,
+  h4 > a.anchor:hover:before,
+  h5 > a.anchor:hover:before,
+  h6 > a.anchor:hover:before {
+    visibility: visible;
+    opacity: 0.8;
+  }
+  h1:hover .anchor:before,
+  h2:hover .anchor:before,
+  h3:hover .anchor:before,
+  h4:hover .anchor:before,
+  h5:hover .anchor:before,
+  h6:hover .anchor:before {
+    visibility: visible;
+  }
 }
 </style>

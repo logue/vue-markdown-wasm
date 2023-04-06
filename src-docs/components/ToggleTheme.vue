@@ -2,6 +2,7 @@
 /** Bootstrap 5.3 Toggle Dark mode */
 import { watch } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
+import CircleHalf from './CircleHalf.vue';
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
@@ -18,6 +19,6 @@ watch(
 
 <template>
   <a href="#" @click="toggleDark()">
-    <i class="bi bi-circle-half" />
+    <circle-half />
   </a>
 </template>
