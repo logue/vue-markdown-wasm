@@ -6,7 +6,6 @@ import {
   watch,
   type PropType,
   type Ref,
-  type SetupContext,
 } from 'vue-demi';
 
 // Helpers
@@ -104,7 +103,7 @@ export default defineComponent({
    * @param props  - Props
    * @param context - Context
    */
-  setup(props, context: SetupContext) {
+  setup(props, context) {
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
     /** Output HTML */

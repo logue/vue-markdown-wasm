@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig.json",
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "env.d.ts",
     "src/**/*",
@@ -13,6 +13,8 @@
     "composite": true,
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"], "vue-markdown-wasm": ["./src/index.ts"] },
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }
