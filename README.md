@@ -35,6 +35,23 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
 See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [source code](./src-docs/DemoPage.vue).
 
+### CDN Usage
+
+Load markdown-wasm and vue demi separately.
+
+```html
+<!-- Vue core -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
+<!-- Markdown wasm -->
+<script src="https://cdn.jsdelivr.net/npm/vue-demi@0.14.5/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@logue/markdown-wasm@1.4.10/dist/markdown.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-markdown-wasm@0.3.10/dist/index.iife.js"></script>
+<script>
+  const { createApp } = Vue;
+  app.component(VueMarkdown).mount('#app');
+</script>
+```
+
 ## Props
 
 | Props           | Type                  | Default            | Information                                                                                                                 |

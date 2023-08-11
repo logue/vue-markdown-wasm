@@ -16,6 +16,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
     base: './',
     publicDir: command === 'serve' ? 'public' : false,
     plugins: [
+      // @ts-expect-error
       Vue(),
       // vite-plugin-checker
       // https://github.com/fi3ework/vite-plugin-checker
@@ -28,6 +29,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       }),
       // vite-plugin-banner
       // https://github.com/chengpeiquan/vite-plugin-banner
+      // @ts-expect-error
       banner(`/**
  * ${pkg.name}
  *
@@ -105,14 +107,14 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
           globals: {
             vue: 'Vue',
             'vue-demi': 'VueDemi',
-            '@logue/markdown-wasm': 'markdownWasm',
+            '@logue/markdown-wasm': 'markdown',
           },
           manualChunks:
             mode !== 'docs'
               ? undefined
               : {
                   vue: ['vue'],
-                  'markdown-wasm': ['@logue/markdown-wasm'],
+                  markdown: ['@logue/markdown-wasm'],
                   codemirror: [
                     'vue-codemirror6',
                     'codemirror',
