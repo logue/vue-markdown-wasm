@@ -9,7 +9,7 @@ import {
 } from 'vue-demi';
 
 // Helpers
-import h from '../helpers/h-demi';
+import h from '@/helpers/h-demi';
 import {
   parse,
   ParseFlags,
