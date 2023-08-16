@@ -37,15 +37,15 @@ See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [
 
 ### CDN Usage
 
-Load markdown-wasm and vue demi separately.
+Load markdown-wasm and vue-demi separately. Please change the version accordingly.
 
 ```html
 <!-- Vue core -->
 <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
-<!-- Markdown wasm -->
 <script src="https://cdn.jsdelivr.net/npm/vue-demi@0.14.5/lib/index.iife.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@logue/markdown-wasm@1.4.10/dist/markdown.iife.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-markdown-wasm@0.3.10/dist/index.iife.js"></script>
+<!-- Markdown wasm -->
+<script src="https://cdn.jsdelivr.net/npm/@logue/markdown-wasm@1.4.11/dist/markdown.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-markdown-wasm@0.3.11/dist/index.iife.js"></script>
 <script>
   const { createApp } = Vue;
   app.component(VueMarkdown).mount('#app');
