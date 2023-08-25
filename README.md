@@ -44,8 +44,8 @@ Load markdown-wasm and vue-demi separately. Please change the version accordingl
 <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-demi@0.14.5/lib/index.iife.min.js"></script>
 <!-- Markdown wasm -->
-<script src="https://cdn.jsdelivr.net/npm/@logue/markdown-wasm@1.4.11/dist/markdown.iife.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-markdown-wasm@0.3.11/dist/index.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@logue/markdown-wasm@1.4.12/dist/markdown.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-markdown-wasm@0.3.12/dist/index.iife.min.js"></script>
 <script>
   const { createApp } = Vue;
   app.component(VueMarkdown).mount('#app');

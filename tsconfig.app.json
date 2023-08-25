@@ -11,9 +11,6 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
-    "noEmit": false,
-    "emitDeclarationOnly": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
