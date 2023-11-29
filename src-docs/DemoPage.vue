@@ -48,6 +48,12 @@ _You **can** combine them_
 1. Item 2
 1. Item 3
 
+### Task list
+
+- [ ] Task Item 1
+- [x] Task Item 2
+- [ ] Task Item 3
+
 ## Images
 
 ![This is a alt text.](${logo} "This is a sample image.")
@@ -148,11 +154,83 @@ const setGithub = () =>
     ParseFlags.TASK_LISTS,
   ]);
 
+/** on markdown render */
+const onRender = async () => {
+  await nextTick();
+
+  markdown.value?.$el
+    .querySelectorAll('[class*="language-"]')
+    .forEach((el?: HTMLElement) => {
+      const lang = el?.className.match(/^language-([a-zA-Z]+)$/);
+      if (el && lang) {
+        console.log(lang);
+      }
+    });
+};
+
 watch(
   () => dark.value,
   async () => await nextTick()
 );
 </script>
+
+<style lang="scss">
+.vue-codemirror * {
+  font-family: var(--bs-font-monospace);
+}
+
+.markdown-body {
+  font-family: var(--bs-body-font-family);
+
+  h1 > a.anchor,
+  h2 > a.anchor,
+  h3 > a.anchor,
+  h4 > a.anchor,
+  h5 > a.anchor,
+  h6 > a.anchor {
+    display: block;
+    float: left;
+    height: 1.2em;
+    width: 1em;
+    margin-left: -1em;
+    position: relative;
+    outline: none;
+  }
+  /*.anchor:target { background: yellow; }*/
+  h1 > a.anchor:before,
+  h2 > a.anchor:before,
+  h3 > a.anchor:before,
+  h4 > a.anchor:before,
+  h5 > a.anchor:before,
+  h6 > a.anchor:before {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0.2;
+    right: 0;
+    top: 0;
+    width: 1.2em;
+    line-height: inherit;
+    content: '🔗';
+  }
+  h1 > a.anchor:hover:before,
+  h2 > a.anchor:hover:before,
+  h3 > a.anchor:hover:before,
+  h4 > a.anchor:hover:before,
+  h5 > a.anchor:hover:before,
+  h6 > a.anchor:hover:before {
+    visibility: visible;
+    opacity: 0.8;
+  }
+  h1:hover .anchor:before,
+  h2:hover .anchor:before,
+  h3:hover .anchor:before,
+  h4:hover .anchor:before,
+  h5:hover .anchor:before,
+  h6:hover .anchor:before {
+    visibility: visible;
+  }
+}
+</style>
 
 <template>
   <teleport to="head">
@@ -194,6 +272,7 @@ watch(
               :format="format"
               :bytes="bytes"
               :allow-js-uri="allowJsUri"
+              @render="onRender"
             />
           </div>
         </div>
@@ -507,61 +586,3 @@ watch(
     </div>
   </main>
 </template>
-
-<style lang="scss">
-.vue-codemirror * {
-  font-family: var(--bs-font-monospace);
-}
-
-.markdown-body {
-  font-family: var(--bs-body-font-family);
-
-  h1 > a.anchor,
-  h2 > a.anchor,
-  h3 > a.anchor,
-  h4 > a.anchor,
-  h5 > a.anchor,
-  h6 > a.anchor {
-    display: block;
-    float: left;
-    height: 1.2em;
-    width: 1em;
-    margin-left: -1em;
-    position: relative;
-    outline: none;
-  }
-  /*.anchor:target { background: yellow; }*/
-  h1 > a.anchor:before,
-  h2 > a.anchor:before,
-  h3 > a.anchor:before,
-  h4 > a.anchor:before,
-  h5 > a.anchor:before,
-  h6 > a.anchor:before {
-    visibility: hidden;
-    position: absolute;
-    opacity: 0.2;
-    right: 0;
-    top: 0;
-    width: 1.2em;
-    line-height: inherit;
-    content: '🔗';
-  }
-  h1 > a.anchor:hover:before,
-  h2 > a.anchor:hover:before,
-  h3 > a.anchor:hover:before,
-  h4 > a.anchor:hover:before,
-  h5 > a.anchor:hover:before,
-  h6 > a.anchor:hover:before {
-    visibility: visible;
-    opacity: 0.8;
-  }
-  h1:hover .anchor:before,
-  h2:hover .anchor:before,
-  h3:hover .anchor:before,
-  h4:hover .anchor:before,
-  h5:hover .anchor:before,
-  h6:hover .anchor:before {
-    visibility: visible;
-  }
-}
-</style>

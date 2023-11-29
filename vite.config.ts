@@ -16,7 +16,6 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
     base: './',
     publicDir: command === 'serve' ? 'public' : false,
     plugins: [
-      // @ts-expect-error
       Vue(),
       // vite-plugin-checker
       // https://github.com/fi3ework/vite-plugin-checker
