@@ -93,4 +93,4 @@ Load markdown-wasm and vue-demi separately. Please change the version accordingl
 
 ## LICENSE
 
-©2022-2023 by Logue. Licensed under the [MIT License](LICENSE).
+©2022-2024 by Logue. Licensed under the [MIT License](LICENSE).

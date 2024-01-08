@@ -21,14 +21,13 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       // https://github.com/fi3ework/vite-plugin-checker
       checker({
         typescript: true,
-        vueTsc: true,
+        // vueTsc: true,
         eslint: {
           lintCommand: 'eslint',
         },
       }),
       // vite-plugin-banner
       // https://github.com/chengpeiquan/vite-plugin-banner
-      // @ts-expect-error
       banner(`/**
  * ${pkg.name}
  *
@@ -44,13 +43,6 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       // https://github.com/qmhc/vite-plugin-dts
       mode !== 'docs' ? dts() : undefined,
     ],
-    // https://vitejs.dev/config/server-options.html
-    server: {
-      fs: {
-        // Allow serving files from one level up to the project root
-        allow: ['..'],
-      },
-    },
     // Resolver
     resolve: {
       // https://vitejs.dev/config/shared-options.html#resolve-alias
@@ -132,7 +124,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       },
       // Minify option
       target: 'esnext',
-      minify: mode === 'docs',
+      // minify: mode === 'docs',
     },
   };
   // Write meta data.
