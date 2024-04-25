@@ -1,12 +1,13 @@
-import { checker } from 'vite-plugin-checker';
+import { writeFileSync } from 'node:fs';
+import { fileURLToPath, URL } from 'node:url';
+
+import Vue from '@vitejs/plugin-vue';
 import { defineConfig, type UserConfig } from 'vite';
+
 import { visualizer } from 'rollup-plugin-visualizer';
 import banner from 'vite-plugin-banner';
-import Vue from '@vitejs/plugin-vue';
+import { checker } from 'vite-plugin-checker';
 import dts from 'vite-plugin-dts';
-
-import { fileURLToPath, URL } from 'node:url';
-import { writeFileSync } from 'node:fs';
 
 import pkg from './package.json';
 
@@ -22,9 +23,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
       checker({
         typescript: true,
         // vueTsc: true,
-        eslint: {
-          lintCommand: 'eslint',
-        },
+        // eslint: { lintCommand: 'eslint' },
       }),
       // vite-plugin-banner
       // https://github.com/chengpeiquan/vite-plugin-banner
@@ -33,7 +32,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
  *
  * @description ${pkg.description}
  * @author ${pkg.author.name} <${pkg.author.email}>
- * @copyright 2022-2024 By Masashi Yoshikawa All rights reserved.
+ * @copyright 2022-${new Date().getFullYear()} By Masashi Yoshikawa All rights reserved.
  * @license ${pkg.license}
  * @version ${pkg.version}
  * @see {@link ${pkg.homepage}}
@@ -100,15 +99,15 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
             'vue-demi': 'VueDemi',
             '@logue/markdown-wasm': 'markdown',
           },
+          /*
           manualChunks:
             mode !== 'docs'
               ? undefined
               : {
                   vue: ['vue'],
-                  markdown: ['@logue/markdown-wasm'],
+                  markdownWasm: ['@logue/markdown-wasm'],
                   codemirror: [
                     'vue-codemirror6',
-                    'codemirror',
                     '@codemirror/autocomplete',
                     '@codemirror/commands',
                     '@codemirror/language',
@@ -117,9 +116,8 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
                     '@codemirror/state',
                     '@codemirror/view',
                   ],
-                  // Add the following as needed.
-                  'codemirror-lang': ['@codemirror/lang-markdown'],
                 },
+                */
         },
       },
       // Minify option

@@ -1,4 +1,11 @@
 import {
+  parse,
+  ParseFlags,
+  ready,
+  type ParseFlagsType,
+  type ParseOptions,
+} from '@logue/markdown-wasm';
+import {
   defineComponent,
   nextTick,
   onMounted,
@@ -10,13 +17,6 @@ import {
 
 // Helpers
 import h from '@/helpers/h-demi';
-import {
-  parse,
-  ParseFlags,
-  ready,
-  type ParseFlagsType,
-  type ParseOptions,
-} from '@logue/markdown-wasm';
 
 type MarkdownOutputs = Uint8Array | string | null;
 
@@ -167,9 +167,7 @@ export default defineComponent({
     return h(this.$props.tag, {
       ref: 'placeholder',
       class: 'vue-markdown',
-      domProps: {
-        innerHTML: this.html,
-      } as any,
+      innerHTML: this.html,
     });
   },
 });

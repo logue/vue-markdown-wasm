@@ -1,9 +1,0 @@
-.husky/
-.vscode/
-.yarn/
-dist/
-docs/
-coverage/
-public/assets/
-src/helpers/markdown.es.js
-tsconfig.*.json

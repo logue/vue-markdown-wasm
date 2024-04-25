@@ -236,7 +236,7 @@ watch(
   <teleport to="head">
     <link
       rel="stylesheet"
-      :href="`https://cdn.jsdelivr.net/npm/github-markdown-css@5.2.0/github-markdown-${
+      :href="`https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown-${
         dark ? 'dark' : 'light'
       }.css`"
     />

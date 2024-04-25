@@ -18,13 +18,14 @@ interface Options extends VNodeProps {
   on?: Record<string, () => void>;
   props?: VNodeProps;
   style?: string;
+  innerHTML?: any;
   'aria-hidden'?: string;
 }
 
 const adaptOnsV3 = (
   ons: Record<string, () => void>
 ): Record<string, () => void> => {
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+   
   if (!ons) return {};
   return Object.entries(ons).reduce((ret, [key, handler]) => {
     key = key.charAt(0).toUpperCase() + key.slice(1);
@@ -39,7 +40,7 @@ const adaptOnsV3 = (
 export default function h(
   type: string | Record<any, any>,
   options: Options = {},
-  chidren?: any
+  chidren?: (VNode | string)[]
 ): VNode {
   if (isVue2) {
     // Makeshift support :(
