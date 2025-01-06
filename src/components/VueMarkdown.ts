@@ -2,6 +2,7 @@ import {
   parse,
   ParseFlags,
   ready,
+  type MarkdownOutput,
   type ParseFlagsType,
   type ParseOptions,
 } from '@logue/markdown-wasm';
@@ -17,8 +18,6 @@ import {
 
 // Helpers
 import h from '@/helpers/h-demi';
-
-type MarkdownOutputs = Uint8Array | string | null;
 
 /** Vue Markdown Component */
 export default defineComponent({
@@ -86,16 +85,28 @@ export default defineComponent({
      */
     onCodeBlock: {
       type: Function as PropType<
-        (langname: string, body: Uint8Array) => MarkdownOutputs
+        (langname: string, body: Uint8Array) => MarkdownOutput
       >,
-      default: () => {
-        return undefined;
-      },
+    },
+    /** Enable Debug log. default is false */
+    debug: {
+      type: Boolean,
+      default: false,
+    },
+    /** Output special characters as entity reference characters */
+    verbatimEntities: {
+      type: Boolean,
+      default: true,
+    },
+    /** Disable anchor tag in headlines. Defaults to `false` */
+    disableHeadlineAnchors: {
+      type: Boolean,
+      default: false,
     },
   },
   /** Emits */
   emits: {
-    render: (value: MarkdownOutputs) => true,
+    render: (value: MarkdownOutput) => true,
   },
   /**
    * Setup
@@ -107,7 +118,7 @@ export default defineComponent({
     /** Editor DOM */
     const placeholder: Ref<HTMLElement | undefined> = ref();
     /** Output HTML */
-    const html: Ref<MarkdownOutputs> = ref('');
+    const html: Ref<MarkdownOutput> = ref('');
 
     /** Rednder markdown */
     watch(
@@ -115,10 +126,13 @@ export default defineComponent({
       async value => {
         html.value = render(value.modelValue, {
           parseFlags: value.parseFlags,
-          format: value.format,
+          xhtml: value.format === 'xhtml',
           bytes: props.bytes,
           allowJSURIs: value.allowJsUri,
-          onCodeBlock: value.onCodeBlock,
+          onCodeBlock: value.onCodeBlock!,
+          debug: value.debug,
+          verbatimEntities: value.verbatimEntities,
+          disableHeadlineAnchors: value.disableHeadlineAnchors,
         });
         await nextTick();
       },
@@ -129,10 +143,13 @@ export default defineComponent({
       await ready();
       html.value = render(props.modelValue, {
         parseFlags: props.parseFlags,
-        format: props.format,
+        xhtml: props.format == 'xhtml',
         bytes: props.bytes,
         allowJSURIs: props.allowJsUri,
-        onCodeBlock: props.onCodeBlock,
+        onCodeBlock: props.onCodeBlock!,
+        debug: props.debug,
+        verbatimEntities: props.verbatimEntities,
+        disableHeadlineAnchors: props.disableHeadlineAnchors,
       });
     });
 
@@ -145,7 +162,7 @@ export default defineComponent({
     const render = (
       source: string | Uint8Array,
       options: ParseOptions
-    ): MarkdownOutputs => {
+    ): MarkdownOutput => {
       const ret = parse(source, options);
       context.emit('render', ret);
       return ret;

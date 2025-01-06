@@ -5,6 +5,7 @@ import { useDark } from '@vueuse/core';
 
 import CodeMirror from 'vue-codemirror6';
 import { markdown as md } from '@codemirror/lang-markdown';
+import 'github-markdown-css/github-markdown.css';
 
 import VueMarkdown from 'vue-markdown-wasm';
 import { ParseFlags, type ParseFlagsType } from '@logue/markdown-wasm';
@@ -76,16 +77,17 @@ You may be using [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown
 | left bar      | center bar     | right bar     |
 | left baz      | center baz     | right baz     |
 
+## Inline code
+
+This web site is using \`markdown-wasm\`.
+
 ## Blocks of code
 
 \`\`\`js
 let message = 'Hello world';
 alert(message);
 \`\`\`
-
-## Inline code
-
-This web site is using \`markdown-wasm\`.`);
+`);
 
 /** Output Format */
 const format: Ref<'html' | 'xhtml'> = ref('xhtml');
@@ -233,14 +235,6 @@ watch(
 </style>
 
 <template>
-  <teleport to="head">
-    <link
-      rel="stylesheet"
-      :href="`https://cdn.jsdelivr.net/npm/github-markdown-css@5.5.1/github-markdown-${
-        dark ? 'dark' : 'light'
-      }.css`"
-    />
-  </teleport>
   <main class="container">
     <div class="card my-3">
       <h2 class="card-header h5">Demo</h2>
@@ -474,10 +468,10 @@ watch(
               <input
                 id="TABLES"
                 v-model="checkedFlags"
-                class="form-check-input"
-                aria-describedby="TABLES_HELP"
-                type="checkbox"
                 :value="ParseFlags.TABLES"
+                aria-describedby="TABLES_HELP"
+                class="form-check-input"
+                type="checkbox"
               />
               <label class="form-check-label" for="TABLES">TABLES</label>
               <div id="TABLES_HELP" class="form-text">
@@ -488,10 +482,10 @@ watch(
               <input
                 id="TASK_LISTS"
                 v-model="checkedFlags"
-                class="form-check-input"
-                aria-describedby="TASK_LISTS_HELP"
-                type="checkbox"
                 :value="ParseFlags.TASK_LISTS"
+                aria-describedby="TASK_LISTS_HELP"
+                class="form-check-input"
+                type="checkbox"
               />
               <label class="form-check-label" for="TASK_LISTS">
                 TASK_LISTS
@@ -504,10 +498,10 @@ watch(
               <input
                 id="WIKI_LINKS"
                 v-model="checkedFlags"
-                class="form-check-input"
-                aria-describedby="WIKI_LINKS_HELP"
-                type="checkbox"
                 :value="ParseFlags.WIKI_LINKS"
+                aria-describedby="WIKI_LINKS_HELP"
+                class="form-check-input"
+                type="checkbox"
               />
               <label class="form-check-label" for="WIKI_LINKS">
                 WIKI_LINKS
@@ -520,10 +514,10 @@ watch(
               <input
                 id="UNDERLINE"
                 v-model="checkedFlags"
-                class="form-check-input"
-                aria-describedby="UNDERLINE_HELP"
-                type="checkbox"
                 :value="ParseFlags.UNDERLINE"
+                aria-describedby="UNDERLINE_HELP"
+                class="form-check-input"
+                type="checkbox"
               />
               <label class="form-check-label" for="UNDERLINE">UNDERLINE</label>
               <div id="UNDERLINE" class="form-text">
@@ -561,9 +555,10 @@ watch(
             <input
               id="bytes"
               v-model="bytes"
+              aria-checked="mixed"
               class="form-check-input"
-              type="checkbox"
               role="switch"
+              type="checkbox"
             />
             <label class="form-check-label" for="bytes">
               result as a Uint8Array
@@ -573,9 +568,10 @@ watch(
             <input
               id="allowJsUri"
               v-model="allowJsUri"
+              aria-checked="mixed"
               class="form-check-input"
-              type="checkbox"
               role="switch"
+              type="checkbox"
             />
             <label class="form-check-label" for="allowJsUri">
               Allow "javascript:" in links

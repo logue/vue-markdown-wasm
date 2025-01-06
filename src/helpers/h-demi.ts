@@ -25,7 +25,6 @@ interface Options extends VNodeProps {
 const adaptOnsV3 = (
   ons: Record<string, () => void>
 ): Record<string, () => void> => {
-   
   if (!ons) return {};
   return Object.entries(ons).reduce((ret, [key, handler]) => {
     key = key.charAt(0).toUpperCase() + key.slice(1);

@@ -40,7 +40,9 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
 `),
       // vite-plugin-dts
       // https://github.com/qmhc/vite-plugin-dts
-      mode !== 'docs' ? dts() : undefined,
+      mode === 'docs'
+        ? undefined
+        : dts({ tsconfigPath: './tsconfig.app.json' }),
     ],
     // Resolver
     resolve: {
