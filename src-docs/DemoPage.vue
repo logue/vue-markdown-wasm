@@ -8,7 +8,11 @@ import { markdown as md } from '@codemirror/lang-markdown';
 import 'github-markdown-css/github-markdown.css';
 
 import VueMarkdown from 'vue-markdown-wasm';
-import { ParseFlags, type ParseFlagsType } from '@logue/markdown-wasm';
+import {
+  ParseFlags,
+  type MarkdownOutput,
+  type ParseFlagsType,
+} from '@logue/markdown-wasm';
 
 import logo from './assets/logo.png';
 
@@ -101,6 +105,12 @@ const bytes: Ref<boolean> = ref(false);
 /** Allow "javascript:" in links */
 const allowJsUri: Ref<boolean> = ref(false);
 
+/** Output special characters as entity reference characters */
+const verbatimEntities: Ref<boolean> = ref(true);
+
+/** Disable anchor tag in headlines. Defaults to `false` */
+const disableHeadlineAnchors: Ref<boolean> = ref(false);
+
 /** Markdown parse flags  */
 const checkedFlags: Ref<ParseFlagsType[]> = ref([
   ParseFlags.COLLAPSE_WHITESPACE,
@@ -157,9 +167,7 @@ const setGithub = () =>
   ]);
 
 /** on markdown render */
-const onRender = async () => {
-  await nextTick();
-
+const onRender = (_value: MarkdownOutput) => {
   markdown.value?.$el
     .querySelectorAll('[class*="language-"]')
     .forEach((el?: HTMLElement) => {
@@ -266,6 +274,8 @@ watch(
               :format="format"
               :bytes="bytes"
               :allow-js-uri="allowJsUri"
+              :verbatim-entities="verbatimEntities"
+              :disable-headline-anchors="disableHeadlineAnchors"
               @render="onRender"
             />
           </div>
@@ -576,6 +586,40 @@ watch(
             <label class="form-check-label" for="allowJsUri">
               Allow "javascript:" in links
             </label>
+          </div>
+          <div class="form-check form-switch">
+            <input
+              id="verbatimEntities"
+              v-model="verbatimEntities"
+              aria-checked="mixed"
+              class="form-check-input"
+              role="switch"
+              type="checkbox"
+              aria-describedby="verbatimEntitiesHelp"
+            />
+            <label class="form-check-label" for="verbatimEntities">
+              Verbatim Entities
+            </label>
+            <div id="verbatimEntitiesHelp" class="form-text">
+              Output special characters as entity reference characters
+            </div>
+          </div>
+          <div class="form-check form-switch">
+            <input
+              id="disableHeadlineAnchors"
+              v-model="disableHeadlineAnchors"
+              aria-checked="mixed"
+              class="form-check-input"
+              role="switch"
+              type="checkbox"
+              aria-describedby="disableHeadlineAnchorsHelp"
+            />
+            <label class="form-check-label" for="disableHeadlineAnchors">
+              Disable Headline Anchors
+            </label>
+            <div id="disableHeadlineAnchorsHelp" class="form-text">
+              Disable anchor tag in headlines. Defaults to `false`
+            </div>
           </div>
         </fieldset>
       </div>

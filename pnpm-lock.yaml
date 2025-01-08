@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@logue/markdown-wasm':
-        specifier: ^1.5.1
-        version: 1.5.1
+        specifier: ^1.5.2
+        version: 1.5.2
       '@vue/composition-api':
         specifier: ^1.7.2
         version: 1.7.2(vue@3.5.13(typescript@5.7.2))
@@ -22,8 +22,8 @@ importers:
         version: 0.14.10(@vue/composition-api@1.7.2(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
     devDependencies:
       '@codemirror/lang-markdown':
-        specifier: 6.3.1
-        version: 6.3.1
+        specifier: 6.3.0
+        version: 6.3.0
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.17.0
@@ -118,8 +118,8 @@ importers:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.7.2)
       vue-codemirror6:
-        specifier: ^1.3.9
-        version: 1.3.9(@vue/composition-api@1.7.2(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
+        specifier: 1.3.8
+        version: 1.3.8(@vue/composition-api@1.7.2(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
       vue-eslint-parser:
         specifier: ^9.4.3
         version: 9.4.3(eslint@9.17.0)
@@ -194,10 +194,10 @@ packages:
         integrity: sha512-VGQfY+FCc285AhWuwjYxQyUQcYurWlxdKYT4bqwr3Twnd5wP5WSeu52t4tvvuWmljT4EmgEgZCqSieokhtY8hg==,
       }
 
-  '@codemirror/lang-markdown@6.3.1':
+  '@codemirror/lang-markdown@6.3.0':
     resolution:
       {
-        integrity: sha512-y3sSPuQjBKZQbQwe3ZJKrSW6Silyl9PnrU/Mf0m2OQgIlPoSYTtOvEL7xs94SVMkb8f4x+SQFnzXPdX4Wk2lsg==,
+        integrity: sha512-lYrI8SdL/vhd0w0aHIEvIRLRecLF7MiiRfzXFZY94dFwHqC9HtgxgagJ8fyYNBldijGatf9wkms60d8SrAj6Nw==,
       }
 
   '@codemirror/language@6.10.7':
@@ -615,10 +615,10 @@ packages:
         integrity: sha512-Wu7B6VnrKTbBEohqa63h5vxXjiC4pO5ZQJ/TDbhJxPQaaIoRD/6UVDhSDtVsCwVZV12vvN9KxuLL3ATMnlG0oQ==,
       }
 
-  '@logue/markdown-wasm@1.5.1':
+  '@logue/markdown-wasm@1.5.2':
     resolution:
       {
-        integrity: sha512-hGYBC6U2dRDCyiPRuS4NuVNGPoY+BmiE3mtqgDPf2QRzng19YyEKKf3rEabq6SQj/mQq7XrJxp5z3d7fOFmUXQ==,
+        integrity: sha512-Rxm3eKyDd6YZvRZ3H26JCZYApr5Rlb57FhJ+CEAg/YuWHMRoJycVTTn1zJ64yI4vO0cCdU9ok481qp1dax7pxg==,
       }
     engines: { pnpm: '>=1.15.0' }
 
@@ -4153,12 +4153,12 @@ packages:
         integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==,
       }
 
-  vue-codemirror6@1.3.9:
+  vue-codemirror6@1.3.8:
     resolution:
       {
-        integrity: sha512-dNPGV+Lutc/Q3FMxhVH37neNzADPLyTHE2WOz4/7Dibbqvo/CHvx3s1zegxlfLkNVd0rNraTEM8C+Tkq0T5lZw==,
+        integrity: sha512-pCOzKzBBSFKi/SjUg+XGranV1vt+8S22z56BES/OeZtmyuj2M0CE0aczYS8qbTWNnKcuJcI5FRDHzVXy2v2Htg==,
       }
-    engines: { pnpm: '>=9.15.0' }
+    engines: { pnpm: '>=9.14.2' }
     peerDependencies:
       vue: ^2.7.14 || ^3.4
 
@@ -4360,15 +4360,15 @@ snapshots:
 
   '@codemirror/commands@6.7.1':
     dependencies:
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
       '@lezer/common': 1.2.3
 
   '@codemirror/lang-css@6.3.1':
     dependencies:
       '@codemirror/autocomplete': 6.18.4
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/state': 6.5.0
       '@lezer/common': 1.2.3
       '@lezer/css': 1.1.9
@@ -4378,9 +4378,9 @@ snapshots:
       '@codemirror/autocomplete': 6.18.4
       '@codemirror/lang-css': 6.3.1
       '@codemirror/lang-javascript': 6.2.2
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
       '@lezer/common': 1.2.3
       '@lezer/css': 1.1.9
       '@lezer/html': 1.3.10
@@ -4388,20 +4388,20 @@ snapshots:
   '@codemirror/lang-javascript@6.2.2':
     dependencies:
       '@codemirror/autocomplete': 6.18.4
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/lint': 6.8.4
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
       '@lezer/common': 1.2.3
       '@lezer/javascript': 1.4.21
 
-  '@codemirror/lang-markdown@6.3.1':
+  '@codemirror/lang-markdown@6.3.0':
     dependencies:
       '@codemirror/autocomplete': 6.18.4
       '@codemirror/lang-html': 6.4.9
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
       '@lezer/common': 1.2.3
       '@lezer/markdown': 1.3.2
 
@@ -4432,7 +4432,7 @@ snapshots:
   '@codemirror/search@6.5.8':
     dependencies:
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
       crelt: 1.0.6
 
   '@codemirror/state@6.5.0':
@@ -4624,7 +4624,7 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/highlight': 1.2.1
 
-  '@logue/markdown-wasm@1.5.1': {}
+  '@logue/markdown-wasm@1.5.2': {}
 
   '@marijn/find-cluster-break@1.0.2': {}
 
@@ -5282,11 +5282,11 @@ snapshots:
     dependencies:
       '@codemirror/autocomplete': 6.18.4
       '@codemirror/commands': 6.7.1
-      '@codemirror/language': 6.10.7
+      '@codemirror/language': 6.10.8
       '@codemirror/lint': 6.8.4
       '@codemirror/search': 6.5.8
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.36.0
+      '@codemirror/view': 6.36.1
 
   color-convert@1.9.3:
     dependencies:
@@ -6863,7 +6863,7 @@ snapshots:
 
   vscode-uri@3.0.8: {}
 
-  vue-codemirror6@1.3.9(@vue/composition-api@1.7.2(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2)):
+  vue-codemirror6@1.3.8(@vue/composition-api@1.7.2(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       '@codemirror/commands': 6.7.1
       '@codemirror/language': 6.10.8
