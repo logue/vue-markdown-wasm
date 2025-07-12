@@ -67,7 +67,7 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
           : {
               entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
               name: 'VueMarkdown',
-              formats: ['umd', 'es', 'iife'],
+              formats: ['umd', 'es', 'cjs', 'iife'],
               fileName: format => `index.${format}.js`,
             },
 
