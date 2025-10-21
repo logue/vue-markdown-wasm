@@ -6,18 +6,13 @@
   "license": "MIT",
   "type": "module",
   "keywords": [
-    "vuejs",
     "vue",
-    "vue-components",
     "vue-markdown",
     "markdown",
-    "markdown-parser",
     "markdown-wasm",
     "vue2",
     "vue3",
-    "vue-plugin",
-    "vue-component",
-    "vue-resource"
+    "vue-component"
   ],
   "author": {
     "name": "Logue",
@@ -34,7 +29,6 @@
   },
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
-  "jsdelivr": "dist/index.iife.js",
   "unpkg": "dist/index.iife.js",
   "types": "dist/src/index.d.ts",
   "exports": {
@@ -49,8 +43,7 @@
     },
     "./iife": {
       "default": "./dist/index.iife.js"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "files": [
     "/dist",
@@ -64,7 +57,7 @@
     "node": ">=18",
     "pnpm": ">=10.3.0"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.19.0",
   "scripts": {
     "dev": "vite",
     "clean": "rimraf node_modules/.vite",
@@ -72,7 +65,7 @@
     "build:analyze": "vite build --mode=analyze",
     "build:clean": "rimraf dist docs",
     "build:docs": "vite build --mode=docs",
-    "lint": "eslint --fix --cache --cache-location ./node_modules/.vite/vite-plugin-eslint && prettier . --write",
+    "lint": "eslint --fix --cache && prettier . --write",
     "preview": "vite preview --mode=docs",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
@@ -135,7 +128,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,json,yaml,yml,vue,htm,html,md}": "eslint --fix --cache --cache-location ./node_modules/.vite/vite-plugin-eslint",
+    "*.{js,ts,json,yaml,yml,vue,htm,html,md}": "eslint --fix --cache",
     "*": "prettier -w -u"
   },
   "resolutions": {

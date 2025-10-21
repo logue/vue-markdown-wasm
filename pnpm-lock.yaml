@@ -14,7 +14,7 @@ importers:
     dependencies:
       '@logue/markdown-wasm':
         specifier: ^1.4.15
-        version: 1.5.5
+        version: 1.5.6
       '@vue/composition-api':
         specifier: ^1.7.2
         version: 1.7.2(vue@3.5.22(typescript@5.9.3))
@@ -439,8 +439,8 @@ packages:
   '@lezer/markdown@1.5.1':
     resolution: {integrity: sha512-F3ZFnIfNAOy/jPSk6Q0e3bs7e9grfK/n5zerkKoc5COH6Guy3Zb0vrJwXzdck79K16goBhYBRAvhf+ksqe0cMg==}
 
-  '@logue/markdown-wasm@1.5.5':
-    resolution: {integrity: sha512-mVXUpXh5d7nDGnQ2SKO5HJ+RAYhcPPRhT4oyAlV0IrlOoqmobpvZwY/cy6uIT94vLh4sJSzNt6FaHX7NB3jTGw==}
+  '@logue/markdown-wasm@1.5.6':
+    resolution: {integrity: sha512-5mNftywDmuiI0C0hmnyOwstd9eCqeya6F9VH9H76a+8eLSSi6XRr9kJ4wKsR0mick79uauoXaXv798VX24dSXg==}
     engines: {node: '>=18', pnpm: '>=10.3.0'}
 
   '@marijn/find-cluster-break@1.0.2':
@@ -3038,7 +3038,7 @@ snapshots:
       '@lezer/common': 1.3.0
       '@lezer/highlight': 1.2.2
 
-  '@logue/markdown-wasm@1.5.5': {}
+  '@logue/markdown-wasm@1.5.6': {}
 
   '@marijn/find-cluster-break@1.0.2': {}
 
