@@ -2,7 +2,6 @@ import {
   parse,
   ParseFlags,
   ready,
-  type MarkdownOutput,
   type ParseFlagsType,
   type ParseOptions,
 } from '@logue/markdown-wasm';
@@ -19,6 +18,8 @@ import {
 // Helpers
 import Meta from '@/Meta';
 import h from '@/helpers/h-demi';
+
+export type MarkdownOutput = Uint8Array | string | null;
 
 /** Vue Markdown Component */
 const VueMarkdown = defineComponent({
@@ -86,7 +87,7 @@ const VueMarkdown = defineComponent({
      */
     onCodeBlock: {
       type: Function as PropType<
-        (langname: string, body: Uint8Array) => MarkdownOutput
+        (langname: string, body: string | Uint8Array) => MarkdownOutput
       >,
     },
     /** Enable Debug log. default is false */
