@@ -35,6 +35,8 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
 See [Vue Markdown Wasm Live Preview](https://logue.dev/vue-markdown-wasm/) and [source code](./src-docs/DemoPage.vue).
 
+Nuxt usage see [NUXT.md](./NUXT.md).
+
 ### CDN Usage
 
 Load markdown-wasm and vue-demi separately. Please change the version accordingly.

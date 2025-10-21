@@ -12,7 +12,10 @@
     "markdown-wasm",
     "vue2",
     "vue3",
-    "vue-component"
+    "vue-component",
+    "nuxt",
+    "ssr",
+    "server-side-rendering"
   ],
   "author": {
     "name": "Logue",
@@ -38,6 +41,11 @@
       "require": "./dist/index.cjs.js",
       "default": "./dist/index.es.js"
     },
+    "./nuxt": {
+      "import": "./dist/src/nuxt.js",
+      "types": "./dist/src/nuxt.d.ts",
+      "default": "./dist/src/nuxt.js"
+    },
     "./umd": {
       "default": "./dist/index.umd.js"
     },
@@ -47,7 +55,8 @@
   },
   "files": [
     "/dist",
-    "./src/components/VueMarkdown.ts"
+    "./src/components/VueMarkdown.ts",
+    "./src/nuxt.ts"
   ],
   "sideEffects": false,
   "browser": {

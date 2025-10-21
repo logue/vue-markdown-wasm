@@ -140,18 +140,21 @@ const VueMarkdown = defineComponent({
       { deep: true }
     );
 
+    // SSR対応: クライアントサイドでのみready()を呼び出し
     onMounted(async () => {
-      await ready();
-      html.value = render(props.modelValue, {
-        parseFlags: props.parseFlags,
-        xhtml: props.format == 'xhtml',
-        bytes: props.bytes,
-        allowJSURIs: props.allowJsUri,
-        onCodeBlock: props.onCodeBlock!,
-        debug: props.debug,
-        verbatimEntities: props.verbatimEntities,
-        disableHeadlineAnchors: props.disableHeadlineAnchors,
-      });
+      if (globalThis.window !== undefined) {
+        await ready();
+        html.value = render(props.modelValue, {
+          parseFlags: props.parseFlags,
+          xhtml: props.format == 'xhtml',
+          bytes: props.bytes,
+          allowJSURIs: props.allowJsUri,
+          onCodeBlock: props.onCodeBlock!,
+          debug: props.debug,
+          verbatimEntities: props.verbatimEntities,
+          disableHeadlineAnchors: props.disableHeadlineAnchors,
+        });
+      }
     });
 
     /**
@@ -164,6 +167,11 @@ const VueMarkdown = defineComponent({
       source: string | Uint8Array,
       options: ParseOptions
     ): MarkdownOutput => {
+      // SSR対応: サーバーサイドでは空文字列を返す
+      if (globalThis.window === undefined) {
+        return '';
+      }
+
       const ret = parse(source, options);
       context.emit('render', ret);
       return ret;
