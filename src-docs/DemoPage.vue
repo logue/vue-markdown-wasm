@@ -7,12 +7,8 @@ import CodeMirror from 'vue-codemirror6';
 import { markdown as md } from '@codemirror/lang-markdown';
 import 'github-markdown-css/github-markdown.css';
 
-import VueMarkdown from 'vue-markdown-wasm';
-import {
-  ParseFlags,
-  type MarkdownOutput,
-  type ParseFlagsType,
-} from '@logue/markdown-wasm';
+import VueMarkdown, { type MarkdownOutput } from 'vue-markdown-wasm';
+import { ParseFlags, type ParseFlagsType } from '@logue/markdown-wasm';
 
 import logo from './assets/logo.png';
 
@@ -118,7 +114,7 @@ const checkedFlags: Ref<ParseFlagsType[]> = ref([
   ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
   ParseFlags.STRIKETHROUGH,
   ParseFlags.TABLES,
-  ParseFlags.TASK_LISTS,
+  ParseFlags.TASK_LISTS
 ]);
 
 /** Darkmode */
@@ -146,7 +142,7 @@ const setDefault = () => {
     ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
     ParseFlags.STRIKETHROUGH,
     ParseFlags.TABLES,
-    ParseFlags.TASK_LISTS,
+    ParseFlags.TASK_LISTS
   ];
 };
 
@@ -163,19 +159,17 @@ const setGithub = () =>
     ParseFlags.PERMISSIVE_URL_AUTO_LINKS,
     ParseFlags.TABLES,
     ParseFlags.STRIKETHROUGH,
-    ParseFlags.TASK_LISTS,
+    ParseFlags.TASK_LISTS
   ]);
 
 /** on markdown render */
 const onRender = (_value: MarkdownOutput) => {
-  markdown.value?.$el
-    .querySelectorAll('[class*="language-"]')
-    .forEach((el?: HTMLElement) => {
-      const lang = el?.className.match(/^language-([a-zA-Z]+)$/);
-      if (el && lang) {
-        console.log(lang);
-      }
-    });
+  markdown.value?.$el.querySelectorAll('[class*="language-"]').forEach((el?: HTMLElement) => {
+    const lang = el?.className.match(/^language-([a-zA-Z]+)$/);
+    if (el && lang) {
+      console.log(lang);
+    }
+  });
 };
 
 watch(
@@ -249,14 +243,9 @@ watch(
       <div class="card-body">
         <p>
           Markdown editor uses
-          <a href="https://github.com/logue/vue-codemirror6/" target="_blank">
-            vue-codemirror6
-          </a>
+          <a href="https://github.com/logue/vue-codemirror6/" target="_blank">vue-codemirror6</a>
           . Also, the Markdown preview uses the
-          <a
-            href="https://github.com/sindresorhus/github-markdown-css/"
-            target="_blank"
-          >
+          <a href="https://github.com/sindresorhus/github-markdown-css/" target="_blank">
             github-markdown-css
           </a>
           stylesheet.
@@ -288,30 +277,12 @@ watch(
         <fieldset>
           <legend>ParseFlags</legend>
           <div class="d-grid gap-2 d-md-block my-1">
-            <button
-              type="button"
-              class="btn btn-primary mr-1"
-              @click="setDefault"
-            >
-              DEFAULT
-            </button>
-            <button type="button" class="btn btn-info mx-1" @click="setNoHtml">
-              NO_HTML
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary mx-1"
-              @click="setCommonMark"
-            >
+            <button type="button" class="btn btn-primary mr-1" @click="setDefault">DEFAULT</button>
+            <button type="button" class="btn btn-info mx-1" @click="setNoHtml">NO_HTML</button>
+            <button type="button" class="btn btn-secondary mx-1" @click="setCommonMark">
               COMMONMARK
             </button>
-            <button
-              type="button"
-              class="btn btn-success ml-1"
-              @click="setGithub"
-            >
-              GITHUB
-            </button>
+            <button type="button" class="btn btn-success ml-1" @click="setGithub">GITHUB</button>
           </div>
           <ul class="list-unstyled card-columns" style="column-count: 2">
             <li class="form-check">
@@ -323,9 +294,7 @@ watch(
                 type="checkbox"
                 :value="ParseFlags.COLLAPSE_WHITESPACE"
               />
-              <label class="form-check-label" for="COLLAPSE_WHITESPACE">
-                COLLAPSE_WHITESPACE
-              </label>
+              <label class="form-check-label" for="COLLAPSE_WHITESPACE">COLLAPSE_WHITESPACE</label>
               <div id="COLLAPSE_WHITESPACE_HELP" class="form-text">
                 In TEXT, collapse non-trivial whitespace into single ' '
               </div>
@@ -339,9 +308,7 @@ watch(
                 type="checkbox"
                 :value="ParseFlags.LATEX_MATH_SPANS"
               />
-              <label class="form-check-label" for="LATEX_MATH_SPANS">
-                LATEX_MATH_SPANS
-              </label>
+              <label class="form-check-label" for="LATEX_MATH_SPANS">LATEX_MATH_SPANS</label>
               <div id="LATEX_MATH_SPANS_HELP" class="form-text">
                 Enable $ and $$ containing LaTeX equations.
               </div>
@@ -355,12 +322,8 @@ watch(
                 type="checkbox"
                 :value="ParseFlags.NO_HTML_BLOCKS"
               />
-              <label class="form-check-label" for="NO_HTML_BLOCKS">
-                NO_HTML_BLOCKS
-              </label>
-              <div id="NO_HTML_BLOCKS_HELP" class="form-text">
-                Disable raw HTML blocks.
-              </div>
+              <label class="form-check-label" for="NO_HTML_BLOCKS">NO_HTML_BLOCKS</label>
+              <div id="NO_HTML_BLOCKS_HELP" class="form-text">Disable raw HTML blocks.</div>
             </li>
             <li class="form-check">
               <input
@@ -371,12 +334,8 @@ watch(
                 type="checkbox"
                 :value="ParseFlags.NO_HTML_SPANS"
               />
-              <label class="form-check-label" for="NO_HTML_SPANS">
-                NO_HTML_SPANS
-              </label>
-              <div id="NO_HTML_BLOCKS_HELP" class="form-text">
-                Disable raw HTML (inline).
-              </div>
+              <label class="form-check-label" for="NO_HTML_SPANS">NO_HTML_SPANS</label>
+              <div id="NO_HTML_BLOCKS_HELP" class="form-text">Disable raw HTML (inline).</div>
             </li>
             <li class="form-check">
               <input
@@ -467,12 +426,8 @@ watch(
                 type="checkbox"
                 :value="ParseFlags.STRIKETHROUGH"
               />
-              <label class="form-check-label" for="STRIKETHROUGH">
-                STRIKETHROUGH
-              </label>
-              <div id="STRIKETHROUGH_HELP" class="form-text">
-                Enable strikethrough extension.
-              </div>
+              <label class="form-check-label" for="STRIKETHROUGH">STRIKETHROUGH</label>
+              <div id="STRIKETHROUGH_HELP" class="form-text">Enable strikethrough extension.</div>
             </li>
             <li class="form-check">
               <input
@@ -484,9 +439,7 @@ watch(
                 type="checkbox"
               />
               <label class="form-check-label" for="TABLES">TABLES</label>
-              <div id="TABLES_HELP" class="form-text">
-                Enable tables extension.
-              </div>
+              <div id="TABLES_HELP" class="form-text">Enable tables extension.</div>
             </li>
             <li class="form-check">
               <input
@@ -497,12 +450,8 @@ watch(
                 class="form-check-input"
                 type="checkbox"
               />
-              <label class="form-check-label" for="TASK_LISTS">
-                TASK_LISTS
-              </label>
-              <div id="TASK_LISTS_HELP" class="form-text">
-                Enable task list extension.
-              </div>
+              <label class="form-check-label" for="TASK_LISTS">TASK_LISTS</label>
+              <div id="TASK_LISTS_HELP" class="form-text">Enable task list extension.</div>
             </li>
             <li class="form-check">
               <input
@@ -513,12 +462,8 @@ watch(
                 class="form-check-input"
                 type="checkbox"
               />
-              <label class="form-check-label" for="WIKI_LINKS">
-                WIKI_LINKS
-              </label>
-              <div id="WIKI_LINKS_HELP" class="form-text">
-                Enable wiki links extension.
-              </div>
+              <label class="form-check-label" for="WIKI_LINKS">WIKI_LINKS</label>
+              <div id="WIKI_LINKS_HELP" class="form-text">Enable wiki links extension.</div>
             </li>
             <li class="form-check">
               <input
@@ -570,9 +515,7 @@ watch(
               role="switch"
               type="checkbox"
             />
-            <label class="form-check-label" for="bytes">
-              result as a Uint8Array
-            </label>
+            <label class="form-check-label" for="bytes">result as a Uint8Array</label>
           </div>
           <div class="form-check form-switch">
             <input
@@ -583,9 +526,7 @@ watch(
               role="switch"
               type="checkbox"
             />
-            <label class="form-check-label" for="allowJsUri">
-              Allow "javascript:" in links
-            </label>
+            <label class="form-check-label" for="allowJsUri">Allow "javascript:" in links</label>
           </div>
           <div class="form-check form-switch">
             <input
@@ -597,9 +538,7 @@ watch(
               type="checkbox"
               aria-describedby="verbatimEntitiesHelp"
             />
-            <label class="form-check-label" for="verbatimEntities">
-              Verbatim Entities
-            </label>
+            <label class="form-check-label" for="verbatimEntities">Verbatim Entities</label>
             <div id="verbatimEntitiesHelp" class="form-text">
               Output special characters as entity reference characters
             </div>

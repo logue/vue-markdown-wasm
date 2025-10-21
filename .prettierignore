@@ -1,9 +1,9 @@
 .husky/
 .vscode/
 .yarn/
-dist/
-docs/
 coverage/
+dist/
+pnpm-lock.yaml
 public/assets/
-src/helpers/markdown.es.js
-
+playwright-report/
+test-results/

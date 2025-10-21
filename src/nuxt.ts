@@ -1,7 +1,9 @@
-import { defineNuxtPlugin } from '#app';
 import VueMarkdown, { install } from './index';
 
-export default defineNuxtPlugin(nuxtApp => {
+// @ts-ignore - Nuxt環境でのみ利用可能
+import { defineNuxtPlugin } from '#app';
+
+export default defineNuxtPlugin((nuxtApp: any) => {
   // Vue 3の場合はinstall関数を使用
   if ('app' in nuxtApp.vueApp) {
     install(nuxtApp.vueApp);
