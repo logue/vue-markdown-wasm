@@ -1,14 +1,18 @@
 import VueMarkdown, { install } from './index';
 
-// @ts-ignore - Nuxt環境でのみ利用可能
+// @ts-ignore - Only available in Nuxt environment
 import { defineNuxtPlugin } from '#app';
 
+/**
+ * Nuxt plugin for vue-markdown-wasm
+ * Automatically registers the VueMarkdown component globally
+ */
 export default defineNuxtPlugin((nuxtApp: any) => {
-  // Vue 3の場合はinstall関数を使用
+  // Use install function for Vue 3
   if ('app' in nuxtApp.vueApp) {
     install(nuxtApp.vueApp);
   } else {
-    // Vue 2の場合は直接コンポーネントを登録
+    // Register component directly for Vue 2
     nuxtApp.vueApp.component('VueMarkdown', VueMarkdown);
   }
 });

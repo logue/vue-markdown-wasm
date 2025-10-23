@@ -38,18 +38,18 @@ const VueMarkdown = defineComponent({
       default: ''
     },
     /**
-     * Using tag
+     * HTML tag to be used for the wrapper element.
      */
     tag: {
       type: String,
       default: 'article'
     },
-    /** Customize parsing */
+    /** Customize parsing behavior with flags */
     parseFlags: {
       type: Number as PropType<ParseFlagsType>,
       default: ParseFlags.DEFAULT
     },
-    /** Select output format. */
+    /** Select the output format (HTML or XHTML). */
     format: {
       type: String as PropType<'html' | 'xhtml'>,
       default: 'xhtml'
@@ -68,60 +68,60 @@ const VueMarkdown = defineComponent({
       type: Boolean,
       default: false
     },
-    /** Allow "javascript:" in links */
+    /** Allow "javascript:" URIs in links */
     allowJsUri: {
       type: Boolean,
       default: false
     },
     /**
-     * Optional callback which if provided is called for each code block.
-     * langname holds the "language tag", if any, of the block.
+     * Optional callback function that is called for each code block.
+     * The langname parameter holds the "language tag", if any, of the block.
      *
      * The returned value is inserted into the resulting HTML verbatim, without HTML escaping.
-     * Thus, you should take care of properly escaping any special HTML characters.
+     * Therefore, you should take care of properly escaping any special HTML characters.
      *
      * If the function returns null or undefined, or an exception occurs, the body will be
      * included as-is after going through HTML escaping.
      *
-     * Note that use of this callback has an adverse impact on performance as it casues
+     * Note that using this callback has an adverse impact on performance as it causes
      * calls and data to be bridged between WASM and JS on every invocation.
      */
     onCodeBlock: {
       type: Function as PropType<(langname: string, body: string | Uint8Array) => MarkdownOutput>
     },
-    /** Enable Debug log. default is false */
+    /** Enable debug logging (default: false) */
     debug: {
       type: Boolean,
       default: false
     },
-    /** Output special characters as entity reference characters */
+    /** Output special characters as HTML entity references */
     verbatimEntities: {
       type: Boolean,
       default: true
     },
-    /** Disable anchor tag in headlines. Defaults to `false` */
+    /** Disable anchor tags in headlines (default: false) */
     disableHeadlineAnchors: {
       type: Boolean,
       default: false
     }
   },
-  /** Emits */
+  /** Event emitters */
   emits: {
     render: (value: MarkdownOutput) => true
   },
   /**
-   * Setup
+   * Component setup function
    *
-   * @param props  - Props
-   * @param context - Context
+   * @param props - Component properties
+   * @param context - Component context
    */
   setup(props, context) {
-    /** Editor DOM */
+    /** DOM element reference */
     const placeholder: Ref<HTMLElement | undefined> = ref();
-    /** Output HTML */
+    /** Rendered HTML output */
     const html: Ref<MarkdownOutput> = ref('');
 
-    /** Rednder markdown */
+    /** Render markdown */
     watch(
       () => props,
       async value => {
@@ -140,7 +140,7 @@ const VueMarkdown = defineComponent({
       { deep: true }
     );
 
-    // SSR対応: クライアントサイドでのみready()を呼び出し
+    // SSR support: Only call ready() on client-side
     onMounted(async () => {
       if (globalThis.window !== undefined) {
         await ready();
@@ -158,13 +158,14 @@ const VueMarkdown = defineComponent({
     });
 
     /**
-     * Markdown source at s and converts it to HTML.
+     * Converts markdown source to HTML.
      *
-     * @param markdown - Markdown source.
-     * @param config - markdown-wasm parse options
+     * @param source - Markdown source text or binary data.
+     * @param options - markdown-wasm parse options configuration.
+     * @returns Rendered HTML output or null.
      */
     const render = (source: string | Uint8Array, options: ParseOptions): MarkdownOutput => {
-      // SSR対応: サーバーサイドでは空文字列を返す
+      // SSR support: Return empty string on server-side
       if (globalThis.window === undefined) {
         return '';
       }
@@ -195,6 +196,10 @@ const VueMarkdown = defineComponent({
   }
 });
 
+/**
+ * Plugin installation function for Vue applications
+ * @param app - Vue application instance
+ */
 const installVueMarkdown = (app: any): void => app.component('VueMarkdown', VueMarkdown);
 
 export { VueMarkdown as default, installVueMarkdown as install, Meta };

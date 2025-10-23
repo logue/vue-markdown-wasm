@@ -45,7 +45,10 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
         : dts({
             tsconfigPath: './tsconfig.app.json',
             include: ['src/**/*'],
-            exclude: ['src/nuxt.ts']
+            exclude: ['src/nuxt.ts', 'src/**/__tests__/**/*'],
+            outDir: 'dist',
+            copyDtsFiles: false,
+            rollupTypes: true
           })
     ],
     // Resolver
