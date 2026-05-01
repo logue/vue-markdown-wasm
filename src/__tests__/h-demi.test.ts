@@ -1,10 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
+
 import h, { slot } from '@/helpers/h-demi';
 
 // Mock vue-demi
 vi.mock('vue-demi', () => ({
   h: vi.fn((type, props, children) => ({ type, props, children })),
-  isVue2: false,
+  isVue2: false
 }));
 
 describe('h-demi', () => {
@@ -19,8 +20,8 @@ describe('h-demi', () => {
     const mockHandler = vi.fn();
     const result = h('button', {
       on: {
-        click: mockHandler,
-      },
+        click: mockHandler
+      }
     });
 
     expect(result).toBeDefined();
@@ -31,7 +32,7 @@ describe('h-demi', () => {
     const result = h('div', {
       class: 'test',
       props: { 'data-id': 'test-id' } as any,
-      domProps: { innerHTML: 'content' } as any,
+      domProps: { innerHTML: 'content' } as any
     });
 
     expect(result).toBeDefined();

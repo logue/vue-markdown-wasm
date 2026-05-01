@@ -4,13 +4,7 @@
  * @see {@link https://github.com/vueuse/vue-demi/issues/65}
  */
 
-import {
-  h as hDemi,
-  isVue2,
-  type Slots,
-  type VNode,
-  type VNodeProps,
-} from 'vue-demi';
+import { h as hDemi, isVue2, type Slots, type VNode, type VNodeProps } from 'vue-demi';
 
 interface Options extends VNodeProps {
   class?: string;
@@ -22,9 +16,7 @@ interface Options extends VNodeProps {
   'aria-hidden'?: string;
 }
 
-const adaptOnsV3 = (
-  ons: Record<string, () => void>
-): Record<string, () => void> => {
+const adaptOnsV3 = (ons: Record<string, () => void>): Record<string, () => void> => {
   if (!ons) return {};
   return Object.entries(ons).reduce((ret, [key, handler]) => {
     key = key.charAt(0).toUpperCase() + key.slice(1);
@@ -49,11 +41,7 @@ export default function h(
   const { props, domProps, on, ...extraOptions } = options;
   const ons = on != null ? adaptOnsV3(on) : {};
 
-  return hDemi(
-    type,
-    { ...extraOptions, ...props, ...domProps, ...ons },
-    chidren
-  );
+  return hDemi(type, { ...extraOptions, ...props, ...domProps, ...ons }, chidren);
 }
 
 export const slot = (defaultSlots: any): Slots =>

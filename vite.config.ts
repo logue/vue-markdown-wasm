@@ -46,9 +46,10 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
             tsconfigPath: './tsconfig.app.json',
             include: ['src/**/*'],
             exclude: ['src/nuxt.ts', 'src/**/__tests__/**/*'],
-            outDir: 'dist',
-            copyDtsFiles: false,
-            rollupTypes: true
+            entryRoot: 'src',
+            outDirs: 'dist',
+            insertTypesEntry: true,
+            copyDtsFiles: false
           })
     ],
     // Resolver
@@ -94,11 +95,6 @@ export default defineConfig(async ({ mode, command }): Promise<UserConfig> => {
         external: mode === 'docs' ? undefined : ['vue', 'vue-demi', '@logue/markdown-wasm'],
         output: {
           esModule: true,
-          generatedCode: {
-            reservedNamesAsProps: false
-          },
-          interop: 'compat',
-          systemNullSetters: false,
           exports: 'named',
           globals: {
             vue: 'Vue',

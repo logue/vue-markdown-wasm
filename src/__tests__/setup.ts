@@ -5,15 +5,17 @@ vi.mock('@logue/markdown-wasm', () => ({
   parse: vi.fn((source: string) => `<p>${source}</p>`),
   ready: vi.fn(() => Promise.resolve()),
   ParseFlags: {
-    DEFAULT: 0,
-  },
+    DEFAULT: 0
+  }
 }));
 
 // Setup DOM environment properly
 Object.defineProperty(globalThis, 'window', {
   writable: true,
-  value: globalThis.window || {},
+  value: globalThis.window || {}
 });
 
 // Mock ShadowRoot for DOM compatibility
-globalThis.ShadowRoot ??= function ShadowRoot() {} as any;
+globalThis.ShadowRoot ??= function ShadowRoot() {
+  return;
+} as any;

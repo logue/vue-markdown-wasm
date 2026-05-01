@@ -23,10 +23,7 @@ import DemoPage from './DemoPage.vue';
       <div id="navbarCollapse" class="collapse navbar-collapse flex-grow-0">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href="https://github.com/logue/vue-markdown-wasm"
-            >
+            <a class="nav-link" href="https://github.com/logue/vue-markdown-wasm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -52,8 +49,7 @@ import DemoPage from './DemoPage.vue';
     <div class="container py-3">
       <h1>Vue Markdown wasm Demo</h1>
       <p class="lead">
-        A rough demo of Vue Markdown wasm in action. You can switch between dark
-        modes from the
+        A rough demo of Vue Markdown wasm in action. You can switch between dark modes from the
         <circle-half />
         icon in the upper left.
       </p>

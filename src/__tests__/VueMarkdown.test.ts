@@ -5,14 +5,12 @@ vi.mock('@logue/markdown-wasm', () => ({
   parse: vi.fn((source: string) => `<p>${source}</p>`),
   ready: vi.fn(() => Promise.resolve()),
   ParseFlags: {
-    DEFAULT: 0,
-  },
+    DEFAULT: 0
+  }
 }));
 
 import VueMarkdown from '@/index';
-const { parse: mockParse, ready: mockReady } = (await vi.importMock(
-  '@logue/markdown-wasm'
-)) as {
+const { parse: mockParse, ready: mockReady } = (await vi.importMock('@logue/markdown-wasm')) as {
   parse: ReturnType<typeof vi.fn>;
   ready: ReturnType<typeof vi.fn>;
 };

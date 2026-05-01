@@ -2,7 +2,7 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-import pluginImport from 'eslint-plugin-import';
+import pluginImport from 'eslint-plugin-import-x';
 import pluginTsdoc from 'eslint-plugin-tsdoc';
 //import pluginVue from 'eslint-plugin-vue';
 /**
@@ -18,8 +18,8 @@ export default tseslint.config(
       'docs/',
       'public/',
       'src/** /*.generated.*',
-      'eslint.config.js',
-    ],
+      'eslint.config.js'
+    ]
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -31,40 +31,41 @@ export default tseslint.config(
           'tsconfig.app.json',
           'tsconfig.node.json',
           'tsconfig.docs.json',
+          'tsconfig.vitest.json'
         ],
         tsconfigRootDir: import.meta.dirname,
         extraFileExtensions: ['.vue'],
         ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
+        sourceType: 'module'
+      }
     },
     plugins: {
-      import: pluginImport,
-      tsdoc: pluginTsdoc,
+      'import-x': pluginImport,
+      tsdoc: pluginTsdoc
       //vue: pluginVue,
     },
     settings: {
       // This will do the trick
-      'import/parsers': {
+      'import-x/parsers': {
         espree: ['.js', '.cjs', '.mjs', '.jsx'],
         '@typescript-eslint/parser': ['.ts', '.tsx'],
-        'vue-eslint-parser': ['.vue'],
+        'vue-eslint-parser': ['.vue']
       },
-      'import/resolver': {
+      'import-x/resolver': {
         typescript: true,
         node: true,
         alias: {
           map: [
             ['@', './src'],
             ['~', './node_modules'],
-            ['vue-markdown-wasmm', './src'],
+            ['vue-markdown-wasmm', './src']
           ],
-          extensions: ['.js', '.ts', '.jsx', '.tsx', '.vue'],
-        },
+          extensions: ['.js', '.ts', '.jsx', '.tsx', '.vue']
+        }
       },
       vite: {
-        configPath: './vite.config.ts',
-      },
+        configPath: './vite.config.ts'
+      }
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
@@ -75,22 +76,19 @@ export default tseslint.config(
       '@typescript-eslint/array-type': [
         'error',
         {
-          default: 'array',
-        },
+          default: 'array'
+        }
       ],
       // Enable @ts-ignore etc.
       '@typescript-eslint/ban-ts-comment': 'off',
       // Left-hand side style
-      '@typescript-eslint/consistent-generic-constructors': [
-        'error',
-        'type-annotation',
-      ],
+      '@typescript-eslint/consistent-generic-constructors': ['error', 'type-annotation'],
       // Enable import sort order, see bellow.
       '@typescript-eslint/consistent-type-imports': [
         'off',
         {
-          prefer: 'type-imports',
-        },
+          prefer: 'type-imports'
+        }
       ],
       // Fix for pinia
       '@typescript-eslint/explicit-function-return-type': 'off',
@@ -98,8 +96,8 @@ export default tseslint.config(
       '@typescript-eslint/no-confusing-void-expression': [
         'error',
         {
-          ignoreArrowShorthand: true,
-        },
+          ignoreArrowShorthand: true
+        }
       ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
@@ -108,46 +106,38 @@ export default tseslint.config(
       // Fix for vite env.d.ts.
       '@typescript-eslint/triple-slash-reference': 'off',
       // Fix for Vue setup style
-      'import/default': 'off',
+      'import-x/default': 'off',
       // Fix for Vue setup style
-      'import/no-default-export': 'off',
+      'import-x/no-default-export': 'off',
       // Sort Import Order.
       // see https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#importorder-enforce-a-convention-in-module-import-order
-      'import/order': [
+      'import-x/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'parent',
-            'sibling',
-            'index',
-            'object',
-            'type',
-          ],
+          groups: ['builtin', 'external', 'parent', 'sibling', 'index', 'object', 'type'],
           pathGroups: [
             // Vue Core
             {
               pattern:
                 '{vue,vue-router,vuex,@/stores,vue-i18n,pinia,vite,vitest,vitest/**,@vitejs/**,@vue/**}',
               group: 'external',
-              position: 'before',
+              position: 'before'
             },
             // Internal Codes
             {
               pattern: '{@/**}',
               group: 'internal',
-              position: 'before',
-            },
+              position: 'before'
+            }
           ],
           pathGroupsExcludedImportTypes: ['builtin'],
           alphabetize: {
-            order: 'asc',
+            order: 'asc'
           },
-          'newlines-between': 'always',
-        },
+          'newlines-between': 'always'
+        }
       ],
-      'tsdoc/syntax': 'warn',
+      'tsdoc/syntax': 'warn'
       /*
       // A tag with no content should be written like <br />.
       'vue/html-self-closing': [
@@ -163,7 +153,7 @@ export default tseslint.config(
       // for Vuetify Labs Fix (v-data-tables etc.)
       'vuetify/no-deprecated-components': 'warn',
       */
-    },
+    }
   },
   // ...pluginVue.configs['flat/recommended'],
   eslintConfigPrettier
