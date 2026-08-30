@@ -1,0 +1,9 @@
+/**
+ * @logue/markdown-wasm
+ *
+ * @description Markdown parser and html generator implemented in WebAssembly
+ * @author Logue
+ * @license MIT
+ * @version 1.6.3
+ * @see {@link https://github.com/logue/markdown-wasm}
+ */
