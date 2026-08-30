@@ -1,9 +1,0 @@
-.husky/
-.vscode/
-.yarn/
-coverage/
-dist/
-pnpm-lock.yaml
-public/assets/
-playwright-report/
-test-results/

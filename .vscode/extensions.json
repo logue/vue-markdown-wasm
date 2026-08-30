@@ -8,6 +8,6 @@
   ],
   "unwantedRecommendations": [
     "Vue.vscode-typescript-vue-plugin",
-    "octref.vetur",
+    "octref.vetur"
   ]
 }

@@ -1,23 +1,23 @@
 import {
-  parse,
   ParseFlags,
-  ready,
   type ParseFlagsType,
-  type ParseOptions
+  type ParseOptions,
+  parse,
+  ready,
 } from '@logue/markdown-wasm';
 import {
   defineComponent,
   nextTick,
   onMounted,
+  type PropType,
+  type Ref,
   ref,
   watch,
-  type PropType,
-  type Ref
 } from 'vue-demi';
 
 // Helpers
-import Meta from '@/Meta';
 import h from '@/helpers/h-demi';
+import { Meta } from '@/types/Meta';
 
 // Types
 export type MarkdownOutput = Uint8Array | string | null;
@@ -28,31 +28,31 @@ const VueMarkdown = defineComponent({
   name: 'VueMarkdown',
   /** Model Definition */
   model: {
-    prop: 'modelValue'
+    prop: 'modelValue',
   },
   /** Props Definition */
   props: {
     /** Model value */
     modelValue: {
       type: String as PropType<string | Uint8Array>,
-      default: ''
+      default: '',
     },
     /**
      * HTML tag to be used for the wrapper element.
      */
     tag: {
       type: String,
-      default: 'article'
+      default: 'article',
     },
     /** Customize parsing behavior with flags */
     parseFlags: {
       type: Number as PropType<ParseFlagsType>,
-      default: ParseFlags.DEFAULT
+      default: ParseFlags.DEFAULT,
     },
     /** Select the output format (HTML or XHTML). */
     format: {
       type: String as PropType<'html' | 'xhtml'>,
-      default: 'xhtml'
+      default: 'xhtml',
     },
     /**
      * bytes=true causes parse() to return the result as a Uint8Array instead of a string.
@@ -66,12 +66,12 @@ const VueMarkdown = defineComponent({
      */
     bytes: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /** Allow "javascript:" URIs in links */
     allowJsUri: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Optional callback function that is called for each code block.
@@ -87,27 +87,29 @@ const VueMarkdown = defineComponent({
      * calls and data to be bridged between WASM and JS on every invocation.
      */
     onCodeBlock: {
-      type: Function as PropType<(langname: string, body: string | Uint8Array) => MarkdownOutput>
+      type: Function as PropType<
+        (langname: string, body: string | Uint8Array) => MarkdownOutput
+      >,
     },
     /** Enable debug logging (default: false) */
     debug: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /** Output special characters as HTML entity references */
     verbatimEntities: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /** Disable anchor tags in headlines (default: false) */
     disableHeadlineAnchors: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   /** Event emitters */
   emits: {
-    render: (value: MarkdownOutput) => true
+    render: (_value: MarkdownOutput) => true,
   },
   /**
    * Component setup function
@@ -124,20 +126,22 @@ const VueMarkdown = defineComponent({
     /** Render markdown */
     watch(
       () => props,
-      async value => {
+      async (value) => {
         html.value = render(value.modelValue, {
           parseFlags: value.parseFlags,
           xhtml: value.format === 'xhtml',
           bytes: props.bytes,
           allowJSURIs: value.allowJsUri,
-          onCodeBlock: value.onCodeBlock!,
+          onCodeBlock: value.onCodeBlock ?? undefined,
           debug: value.debug,
           verbatimEntities: value.verbatimEntities,
-          disableHeadlineAnchors: value.disableHeadlineAnchors
+          disableHeadlineAnchors: value.disableHeadlineAnchors,
         });
         await nextTick();
       },
-      { deep: true }
+      {
+        deep: true,
+      },
     );
 
     // SSR support: Only call ready() on client-side
@@ -146,13 +150,13 @@ const VueMarkdown = defineComponent({
         await ready();
         html.value = render(props.modelValue, {
           parseFlags: props.parseFlags,
-          xhtml: props.format == 'xhtml',
+          xhtml: props.format === 'xhtml',
           bytes: props.bytes,
           allowJSURIs: props.allowJsUri,
-          onCodeBlock: props.onCodeBlock!,
+          onCodeBlock: props.onCodeBlock ?? undefined,
           debug: props.debug,
           verbatimEntities: props.verbatimEntities,
-          disableHeadlineAnchors: props.disableHeadlineAnchors
+          disableHeadlineAnchors: props.disableHeadlineAnchors,
         });
       }
     });
@@ -164,7 +168,10 @@ const VueMarkdown = defineComponent({
      * @param options - markdown-wasm parse options configuration.
      * @returns Rendered HTML output or null.
      */
-    const render = (source: string | Uint8Array, options: ParseOptions): MarkdownOutput => {
+    const render = (
+      source: string | Uint8Array,
+      options: ParseOptions,
+    ): MarkdownOutput => {
       // SSR support: Return empty string on server-side
       if (globalThis.window === undefined) {
         return '';
@@ -176,30 +183,41 @@ const VueMarkdown = defineComponent({
     };
 
     context.expose({
-      render
+      render,
     });
 
     return {
       placeholder,
-      html
+      html,
     };
   },
   render() {
     // <template>
     //   <article ref="placeholder" class="vue-markdown" v-html="html" />
     // </template>
+    const htmlValue =
+      this.html instanceof Uint8Array
+        ? new TextDecoder().decode(this.html)
+        : typeof this.html === 'string'
+          ? this.html
+          : '';
+
     return h(this.$props.tag, {
       ref: 'placeholder',
       class: 'vue-markdown',
-      innerHTML: this.html
+      innerHTML: htmlValue,
     });
-  }
+  },
 });
 
 /**
  * Plugin installation function for Vue applications
  * @param app - Vue application instance
  */
-const installVueMarkdown = (app: any): void => app.component('VueMarkdown', VueMarkdown);
+const installVueMarkdown = (app: {
+  component: (name: string, component: unknown) => void;
+}): void => {
+  app.component('VueMarkdown', VueMarkdown);
+};
 
-export { VueMarkdown as default, installVueMarkdown as install, Meta };
+export { installVueMarkdown as install, Meta, VueMarkdown as default };

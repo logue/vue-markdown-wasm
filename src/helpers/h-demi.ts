@@ -4,45 +4,78 @@
  * @see {@link https://github.com/vueuse/vue-demi/issues/65}
  */
 
-import { h as hDemi, isVue2, type Slots, type VNode, type VNodeProps } from 'vue-demi';
+import {
+  type Component,
+  h as hDemi,
+  isVue2,
+  type VNode,
+  type VNodeProps,
+} from 'vue-demi';
 
-interface Options extends VNodeProps {
+type Options = VNodeProps & {
   class?: string;
   domProps?: VNodeProps;
+  innerHTML?: string;
   on?: Record<string, () => void>;
   props?: VNodeProps;
   style?: string;
-  innerHTML?: any;
   'aria-hidden'?: string;
-}
+};
 
-const adaptOnsV3 = (ons: Record<string, () => void>): Record<string, () => void> => {
+const adaptOnsV3 = (
+  ons: Record<string, () => void>,
+): Record<string, () => void> => {
   if (!ons) return {};
-  return Object.entries(ons).reduce((ret, [key, handler]) => {
-    key = key.charAt(0).toUpperCase() + key.slice(1);
-    key = `on${key}`;
-    return { ...ret, [key]: handler };
-  }, {});
+  return Object.entries(ons).reduce<Record<string, () => void>>(
+    (ret, [key, handler]) => {
+      ret[`on${key.charAt(0).toUpperCase()}${key.slice(1)}`] = handler;
+      return ret;
+    },
+    {},
+  );
 };
 
 /**
- * hDemi function.
+ * Cross-version `h` (hyperscript) function that normalizes Vue 2 style
+ * options (`props`, `domProps`, `on`) into Vue 3's flat VNode data object.
+ *
+ * @param type - Element tag name or component.
+ * @param options - VNode options, accepting both Vue 2 and Vue 3 shapes.
+ * @param children - Child VNode(s).
+ * @returns Created VNode.
  */
 export default function h(
-  type: string | Record<any, any>,
+  type: string | Component,
   options: Options = {},
-  chidren?: (VNode | string)[]
+  children?: VNode | VNode[],
 ): VNode {
   if (isVue2) {
     // Makeshift support :(
     // Since Vue2.7 includes the Composition API, the functions in vue-demi are not used.
-    return hDemi(type, options, chidren);
+    return hDemi(type, options, children);
   }
   const { props, domProps, on, ...extraOptions } = options;
-  const ons = on != null ? adaptOnsV3(on) : {};
+  const ons = on ? adaptOnsV3(on) : {};
 
-  return hDemi(type, { ...extraOptions, ...props, ...domProps, ...ons }, chidren);
+  return hDemi(
+    type,
+    {
+      ...extraOptions,
+      ...props,
+      ...domProps,
+      ...ons,
+    },
+    children,
+  );
 }
 
-export const slot = (defaultSlots: any): Slots =>
-  typeof defaultSlots === 'function' ? defaultSlots() : defaultSlots;
+/**
+ * Normalize a default slot into a VNode array, invoking it if it is a function.
+ *
+ * @param defaultSlots - Default slot content or slot function.
+ * @returns Resolved VNode array.
+ */
+export const slot = (
+  defaultSlots: (() => VNode[]) | VNode[] | undefined,
+): VNode[] =>
+  typeof defaultSlots === 'function' ? defaultSlots() : (defaultSlots ?? []);

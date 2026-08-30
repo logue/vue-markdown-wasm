@@ -1,16 +1,19 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, rs } from '@rstest/core';
 
 import { install } from '@/index';
 
 describe('Install Function', () => {
   it('should register VueMarkdown component', () => {
     const mockApp = {
-      component: vi.fn()
+      component: rs.fn(),
     };
 
     install(mockApp);
 
-    expect(mockApp.component).toHaveBeenCalledWith('VueMarkdown', expect.any(Object));
+    expect(mockApp.component).toHaveBeenCalledWith(
+      'VueMarkdown',
+      expect.any(Object),
+    );
   });
 
   it('should be a function', () => {
@@ -19,10 +22,10 @@ describe('Install Function', () => {
 
   it('should handle multiple app instances', () => {
     const mockApp1 = {
-      component: vi.fn()
+      component: rs.fn(),
     };
     const mockApp2 = {
-      component: vi.fn()
+      component: rs.fn(),
     };
 
     install(mockApp1);

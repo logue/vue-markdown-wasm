@@ -1,3 +1,7 @@
-import VueMarkdown, { install } from './index';
+type NuxtAppLike = {
+  vueApp: {
+    component: (name: string, component: unknown) => void;
+  };
+};
 
-export default function nuxtPlugin(nuxtApp: any): void;
+export default function nuxtPlugin(nuxtApp: NuxtAppLike): void;

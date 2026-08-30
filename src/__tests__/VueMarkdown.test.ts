@@ -1,25 +1,19 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, rs } from '@rstest/core';
 
 // Mock markdown-wasm
-vi.mock('@logue/markdown-wasm', () => ({
-  parse: vi.fn((source: string) => `<p>${source}</p>`),
-  ready: vi.fn(() => Promise.resolve()),
+rs.mock('@logue/markdown-wasm', () => ({
+  parse: rs.fn((source: string) => `<p>${source}</p>`),
+  ready: rs.fn(() => Promise.resolve()),
   ParseFlags: {
-    DEFAULT: 0
-  }
+    DEFAULT: 0,
+  },
 }));
 
 import VueMarkdown from '@/index';
-const { parse: mockParse, ready: mockReady } = (await vi.importMock('@logue/markdown-wasm')) as {
-  parse: ReturnType<typeof vi.fn>;
-  ready: ReturnType<typeof vi.fn>;
-};
 
 describe('VueMarkdown', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
-    mockParse.mockReturnValue('<p>Hello World</p>');
-    mockReady.mockResolvedValue(undefined);
+    rs.clearAllMocks();
   });
 
   it('should be a valid Vue component', () => {
@@ -54,9 +48,7 @@ describe('VueMarkdown', () => {
 
   it('has correct emits definition', () => {
     expect(VueMarkdown.emits).toBeDefined();
-    if (VueMarkdown.emits && typeof VueMarkdown.emits === 'object') {
-      expect('render' in VueMarkdown.emits).toBe(true);
-    }
+    expect('render' in (VueMarkdown.emits ?? {})).toBe(true);
   });
 
   it('has render function', () => {

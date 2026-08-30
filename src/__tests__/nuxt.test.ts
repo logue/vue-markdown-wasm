@@ -1,8 +1,10 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from '@rstest/core';
 
-// Skip nuxt plugin tests as they require Nuxt environment
-describe.skip('Nuxt Plugin', () => {
-  it('should be skipped in test environment', () => {
-    expect(true).toBe(true);
+import VueMarkdown, { install } from '@/index';
+
+describe('Nuxt Plugin', () => {
+  it('exports the component and install hook', () => {
+    expect(VueMarkdown).toBeDefined();
+    expect(typeof install).toBe('function');
   });
 });
